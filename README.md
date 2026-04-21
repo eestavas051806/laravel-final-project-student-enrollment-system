@@ -1,10 +1,11 @@
 # EduEnroll – Student Enrollment System
 
 A web-based Student Enrollment System built with **Laravel 12** and **Bootstrap 5**,
+following the coding conventions of the `laravel-app-fresh` example project.
 
 **IT Professional Track 3 IT9a/L Subject**
 Project Leader: Elisha Mae M. Estavas
-University of Mindanao – Tagum Campus
+University of Mindanao – Davao Campus
 
 ---
 
@@ -130,6 +131,11 @@ enrollments    → id, student_id (FK), subject_id (FK),
 ```
 
 ---
+
+## Coding Conventions
+
+This project follows the same patterns established in `laravel-app-fresh`:
+
 - **Models** – `$fillable` array, minimal Eloquent relationships
 - **Controllers** – validation inside controller methods, named route redirects
 - **Routes** – `routes/web.php` only; closures for simple routes, full controllers for feature routes
