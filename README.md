@@ -5,7 +5,7 @@ following the coding conventions of the `laravel-app-fresh` example project.
 
 **IT Professional Track 3 IT9a/L Subject**
 Project Leader: Elisha Mae M. Estavas
-University of Mindanao – Davao Campus
+University of Mindanao – Tagum Campus
 
 ---
 
