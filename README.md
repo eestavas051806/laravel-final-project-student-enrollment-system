@@ -129,15 +129,3 @@ subjects       → id, code, name, units, schedule, department, year_level,
 enrollments    → id, student_id (FK), subject_id (FK),
                   academic_year, semester, status
 ```
-
----
-
-## Coding Conventions
-
-This project follows the same patterns established in `laravel-app-fresh`:
-
-- **Models** – `$fillable` array, minimal Eloquent relationships
-- **Controllers** – validation inside controller methods, named route redirects
-- **Routes** – `routes/web.php` only; closures for simple routes, full controllers for feature routes
-- **Views** – `@extends('layout.app')` + `@section('content')`, inline `<style>` per view, Bootstrap grid
-- **Design** – Red (`#96281b` / `#c0392b`) + White two-tone, DM Serif Display headings
