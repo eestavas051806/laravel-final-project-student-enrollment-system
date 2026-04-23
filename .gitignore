@@ -4,6 +4,10 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/framework/*
+/storage/framework/.gitignore
+/storage/framework/views/*
+/storage/framework/views/.gitignore
 /storage/logs/*
 !/storage/logs/.gitignore
 /vendor
@@ -16,6 +20,12 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+composer.phar
+composer.exe
+install-composer.php
+composer-config.json
+/cache/*
+!/cache/.gitignore
 /.fleet
 /.idea
 /.nova

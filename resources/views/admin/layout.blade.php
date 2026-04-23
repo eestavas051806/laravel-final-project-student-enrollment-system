@@ -34,7 +34,8 @@
         .ses-alert.error   { background: #fee2e2; border: 1px solid #fecaca; color: #b91c1c; }
         @stack('styles-raw')
     </style>
-    @stack('styles')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+@stack('styles')
 </head>
 <body>
 

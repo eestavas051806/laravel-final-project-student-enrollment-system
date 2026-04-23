@@ -62,7 +62,8 @@
         .ses-alert.success { background: #dcfce7; border: 1px solid #bbf7d0; color: #15803d; }
         .ses-alert.error   { background: #fee2e2; border: 1px solid #fecaca; color: #b91c1c; }
     </style>
-    @stack('styles')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+@stack('styles')
 </head>
 <body>
 
