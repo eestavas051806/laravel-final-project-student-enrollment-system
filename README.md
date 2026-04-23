@@ -1,7 +1,6 @@
 # EduEnroll – Student Enrollment System
 
 A web-based Student Enrollment System built with **Laravel 12** and **Bootstrap 5**,
-following the coding conventions of the `laravel-app-fresh` example project.
 
 **IT Professional Track 3 IT9a/L Subject**
 Project Leader: Elisha Mae M. Estavas
