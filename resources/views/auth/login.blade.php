@@ -99,7 +99,7 @@
             </svg>
         </div>
         <h1 class="login-title">Welcome back</h1>
-        <p class="login-subtitle">Student Enrollment System — Davao Campus</p>
+        <p class="login-subtitle">Student Enrollment System — Tagum Campus</p>
 
         @if($errors->any())
             <div class="ses-alert error" style="margin-bottom:1.25rem;">
