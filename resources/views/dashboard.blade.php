@@ -3,13 +3,13 @@
 
 @push('styles')
 <style>
-    .dash-layout { display: flex; min-height: calc(100vh - 56px); }
+    .dash-layout { display: flex; min-height: calc(100vh - var(--ses-header-height) - var(--ses-content-gap)); }
 
     /* ── SIDEBAR ── */
     .dash-sidebar {
         width: 200px;
         flex-shrink: 0;
-        background: #7f1d1d;
+        background: var(--ses-red-deep);
         padding: 1.5rem 0;
         display: flex;
         flex-direction: column;
@@ -59,14 +59,14 @@
         color: rgba(255,255,255,0.45);
         cursor: pointer;
     }
-    .sidebar-logout:hover { color: #fca5a5; }
+    .sidebar-logout:hover { color: var(--ses-accent-light); }
     .sidebar-logout svg { width: 13px; height: 13px; }
 
     /* ── MAIN CONTENT ── */
     .dash-main { flex: 1; padding: 1.75rem 2rem; background: var(--ses-gray-100); overflow: auto; }
     .dash-greeting { font-size: 0.75rem; color: var(--ses-gray-400); margin-bottom: 0.1rem; }
     .dash-greeting strong { color: var(--ses-gray-900); font-size: 0.92rem; }
-    .dash-period { font-size: 0.7rem; color: var(--ses-red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.5rem; }
+    .dash-period { font-size: 0.7rem; color: var(--ses-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.5rem; }
 
     /* ── STAT CARDS ── */
     .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
@@ -80,8 +80,8 @@
     }
     .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
     .stat-card.c-red::before { background: var(--ses-red); }
-    .stat-card.c-amber::before { background: #f59e0b; }
-    .stat-card.c-green::before { background: #22c55e; }
+    .stat-card.c-accent::before { background: var(--ses-accent); }
+    .stat-card.c-red-soft::before { background: #e0837a; }
     .stat-icon {
         width: 34px; height: 34px;
         border-radius: 9px;
@@ -90,8 +90,8 @@
         font-size: 15px;
     }
     .stat-icon.red { background: var(--ses-red-light); }
-    .stat-icon.amber { background: #fffbeb; }
-    .stat-icon.green { background: #f0fdf4; }
+    .stat-icon.accent { background: var(--ses-accent-light); }
+    .stat-icon.red-soft { background: #fff3f2; }
     .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.65rem; color: var(--ses-gray-900); line-height: 1; margin-bottom: 2px; }
     .stat-lbl { font-size: 0.68rem; color: var(--ses-gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; }
 
@@ -119,7 +119,7 @@
         font-size: 0.83rem;
     }
     .ses-table th {
-        background: #7f1d1d;
+        background: var(--ses-red-deep);
         color: rgba(255,255,255,0.85);
         font-size: 0.65rem;
         text-transform: uppercase;
@@ -135,8 +135,8 @@
         vertical-align: middle;
     }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-red-light); }
-    .subj-code { font-weight: 600; color: var(--ses-red); font-family: monospace; font-size: 0.8rem; }
+    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .pill {
         display: inline-block;
         padding: 2px 10px;
@@ -144,9 +144,9 @@
         font-size: 0.68rem;
         font-weight: 600;
     }
-    .pill.enrolled { background: #dcfce7; color: #15803d; }
-    .pill.waitlist  { background: #fef9c3; color: #854d0e; }
-    .pill.pending   { background: #fee2e2; color: #b91c1c; }
+    .pill.enrolled { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
+    .pill.waitlist  { background: #fff3f2; color: var(--ses-red); }
+    .pill.pending   { background: var(--ses-red-light); color: var(--ses-red-dark); }
 
     /* ── EMPTY STATE ── */
     .empty-state {
@@ -223,13 +223,13 @@
                 <div class="stat-num">{{ $totalUnits }}</div>
                 <div class="stat-lbl">Units enrolled</div>
             </div>
-            <div class="stat-card c-amber">
-                <div class="stat-icon amber">💳</div>
+            <div class="stat-card c-accent">
+                <div class="stat-icon accent">💳</div>
                 <div class="stat-num">₱{{ number_format($totalFee) }}</div>
                 <div class="stat-lbl">Fee this term</div>
             </div>
-            <div class="stat-card c-green">
-                <div class="stat-icon green">{{ $student->is_enrolled ? '✅' : '⏳' }}</div>
+            <div class="stat-card c-red-soft">
+                <div class="stat-icon red-soft">{{ $student->is_enrolled ? '✅' : '⏳' }}</div>
                 <div class="stat-num" style="font-size:1.15rem;">{{ $student->is_enrolled ? 'Enrolled' : 'Pending' }}</div>
                 <div class="stat-lbl">Official status</div>
             </div>

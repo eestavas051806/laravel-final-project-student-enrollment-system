@@ -3,9 +3,9 @@
 
 @push('styles')
 <style>
-    .dash-layout { display: flex; min-height: calc(100vh - 56px); }
+    .dash-layout { display: flex; min-height: calc(100vh - var(--ses-header-height) - var(--ses-content-gap)); }
     .dash-sidebar {
-        width: 200px; flex-shrink: 0; background: #7f1d1d;
+        width: 200px; flex-shrink: 0; background: var(--ses-red-deep);
         padding: 1.5rem 0; display: flex; flex-direction: column;
     }
     .sidebar-section { padding: 0 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.75rem; }
@@ -15,7 +15,7 @@
     .sidebar-item svg { width: 15px; height: 15px; flex-shrink: 0; }
     .sidebar-footer { margin-top: auto; padding: 0.75rem 1.1rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
     .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.45); cursor: pointer; }
-    .sidebar-logout:hover { color: #fca5a5; }
+    .sidebar-logout:hover { color: var(--ses-accent-light); }
     .sidebar-logout svg { width: 13px; height: 13px; }
 
     .subj-main { flex: 1; padding: 1.75rem 2rem; background: var(--ses-gray-100); }
@@ -24,16 +24,16 @@
     .filter-bar { display: flex; gap: 0.65rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
     .filter-select, .filter-input { height: 36px; border: 1.5px solid var(--ses-gray-200); border-radius: 8px; padding: 0 12px; font-size: 0.82rem; font-family: 'DM Sans', sans-serif; background: white; color: var(--ses-gray-900); outline: none; }
     .filter-input { flex: 1; min-width: 160px; }
-    .filter-btn { height: 36px; background: var(--ses-red); color: white; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .filter-btn { height: 36px; background: var(--ses-accent); color: white; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .ses-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--ses-gray-200); font-size: 0.83rem; }
-    .ses-table th { background: #7f1d1d; color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
+    .ses-table th { background: var(--ses-red-deep); color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); color: var(--ses-gray-900); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-red-light); }
-    .subj-code { font-weight: 600; color: var(--ses-red); font-family: monospace; font-size: 0.8rem; }
+    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .dept-pill { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; background: var(--ses-red-light); color: var(--ses-red); }
     .avail { font-size: 0.75rem; color: var(--ses-gray-400); }
-    .avail.low { color: #b91c1c; font-weight: 600; }
+    .avail.low { color: var(--ses-red-dark); font-weight: 600; }
     .btn-enroll-link { display: inline-block; padding: 4px 12px; background: var(--ses-red-light); color: var(--ses-red); border: 1px solid var(--ses-red-100); border-radius: 7px; font-size: 0.72rem; font-weight: 600; text-decoration: none; }
     .btn-enroll-link:hover { background: var(--ses-red); color: white; }
 </style>
@@ -126,7 +126,7 @@
                     </td>
                     <td>
                         @if($isEnrolled)
-                            <span style="font-size:0.75rem;color:#15803d;font-weight:600;">✓ Enrolled</span>
+                            <span style="font-size:0.75rem;color:var(--ses-accent-dark);font-weight:600;">✓ Enrolled</span>
                         @elseif($available > 0)
                             <a href="{{ route('enrollments.index') }}" class="btn-enroll-link">Enroll →</a>
                         @else

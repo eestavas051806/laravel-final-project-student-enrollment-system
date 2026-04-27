@@ -8,18 +8,18 @@
     .filter-bar { display: flex; gap: 0.65rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .filter-select, .filter-input { height: 36px; border: 1.5px solid var(--ses-gray-200); border-radius: 8px; padding: 0 12px; font-size: 0.82rem; font-family: 'DM Sans', sans-serif; background: white; color: var(--ses-gray-900); outline: none; }
     .filter-input { flex: 1; min-width: 200px; }
-    .filter-btn { height: 36px; background: var(--ses-red); color: white; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .filter-btn { height: 36px; background: var(--ses-accent); color: white; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .ses-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--ses-gray-200); font-size: 0.83rem; }
-    .ses-table th { background: #7f1d1d; color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
+    .ses-table th { background: var(--ses-red-deep); color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-red-light); }
+    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
-    .pill.enrolled { background: #dcfce7; color: #15803d; }
+    .pill.enrolled { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
     .pill.pending  { background: #fee2e2; color: #b91c1c; }
     .action-btn { font-size: 0.75rem; text-decoration: none; padding: 3px 9px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .action-btn.view   { color: var(--ses-red); background: var(--ses-red-light); }
-    .action-btn.edit   { color: #2563eb; background: #eff6ff; }
+    .action-btn.edit   { color: var(--ses-accent); background: var(--ses-accent-light); }
     .action-btn.delete { color: #b91c1c; background: #fee2e2; }
 </style>
 @endpush
@@ -67,7 +67,7 @@
     <tbody>
         @forelse($students as $student)
         <tr>
-            <td style="font-family:monospace;font-size:0.78rem;color:var(--ses-red);font-weight:600;">{{ $student->student_id }}</td>
+            <td style="font-size:0.78rem;color:var(--ses-red);font-weight:700;letter-spacing:0.04em;">{{ $student->student_id }}</td>
             <td style="font-weight:500;">{{ $student->first_name }} {{ $student->last_name }}</td>
             <td>{{ $student->course }}</td>
             <td style="font-size:0.78rem;">{{ $student->year_level }}</td>

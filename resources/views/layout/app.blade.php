@@ -8,11 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
+            --ses-header-height: 64px;
+            --ses-content-gap: 16px;
             --ses-red:      #c0392b;
             --ses-red-dark: #96281b;
             --ses-red-deep: #7f1d1d;
             --ses-red-light:#fef2f2;
             --ses-red-100:  #fecaca;
+            --ses-accent:   #1f4e79;
+            --ses-accent-dark:#163a5b;
+            --ses-accent-light:#ecf2f9;
             --ses-white:    #ffffff;
             --ses-gray-50:  #fafafa;
             --ses-gray-100: #f4f4f4;
@@ -22,12 +27,25 @@
             --ses-gray-900: #111827;
         }
         * { box-sizing: border-box; }
-        body { font-family: 'DM Sans', sans-serif; background: var(--ses-gray-100); color: var(--ses-gray-900); min-height: 100vh; }
+        body {
+            margin: 0;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--ses-gray-100);
+            color: var(--ses-gray-900);
+            min-height: 100vh;
+        }
+        button, input, select, textarea { font-family: 'DM Sans', sans-serif; }
+        a, button { transition: background-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease; }
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid transparent;
+            box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.25);
+        }
         .ses-navbar {
             background: var(--ses-red-dark);
-            height: 56px; padding: 0 1.5rem;
+            height: var(--ses-header-height);
+            padding: 0 1.5rem;
             display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 1000;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .ses-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -37,11 +55,13 @@
         .ses-nav-links { display: flex; align-items: center; }
         .ses-nav-links a {
             color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500;
-            padding: 0 14px; height: 56px; display: flex; align-items: center;
-            border-bottom: 3px solid transparent; transition: all 0.15s;
+            padding: 0 14px; height: var(--ses-header-height); display: flex; align-items: center;
+            box-shadow: inset 0 -3px 0 transparent;
         }
         .ses-nav-links a:hover, .ses-nav-links a.active {
-            color: var(--ses-white); border-bottom-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08);
+            color: var(--ses-white);
+            box-shadow: inset 0 -3px 0 rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.08);
         }
         .ses-nav-user { display: flex; align-items: center; gap: 6px; }
         .ses-nav-avatar {
@@ -52,12 +72,15 @@
         }
         .ses-nav-avatar:hover { background: rgba(255,255,255,0.3); color: white; }
         .ses-nav-user form button {
-            background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(31, 78, 121, 0.55); border: 1px solid rgba(255,255,255,0.25);
             color: white; border-radius: 6px; padding: 4px 12px; font-size: 0.78rem;
-            cursor: pointer; font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
         }
-        .ses-nav-user form button:hover { background: rgba(255,255,255,0.22); }
-        .ses-body { padding-top: 56px; }
+        .ses-nav-user form button:hover { background: var(--ses-accent); }
+        .ses-body {
+            min-height: 100vh;
+            padding-top: calc(var(--ses-header-height) + var(--ses-content-gap));
+        }
         .ses-alert { padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.85rem; margin-bottom: 1rem; }
         .ses-alert.success { background: #dcfce7; border: 1px solid #bbf7d0; color: #15803d; }
         .ses-alert.error   { background: #fee2e2; border: 1px solid #fecaca; color: #b91c1c; }

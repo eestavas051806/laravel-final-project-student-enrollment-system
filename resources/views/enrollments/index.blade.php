@@ -3,13 +3,13 @@
 
 @push('styles')
 <style>
-    .dash-layout { display: flex; min-height: calc(100vh - 56px); }
+    .dash-layout { display: flex; min-height: calc(100vh - var(--ses-header-height) - var(--ses-content-gap)); }
 
     /* ── SIDEBAR ── */
     .dash-sidebar {
         width: 200px;
         flex-shrink: 0;
-        background: #7f1d1d;
+        background: var(--ses-red-deep);
         padding: 1.5rem 0;
         display: flex;
         flex-direction: column;
@@ -58,7 +58,7 @@
         color: rgba(255,255,255,0.45);
         cursor: pointer;
     }
-    .sidebar-logout:hover { color: #fca5a5; }
+    .sidebar-logout:hover { color: var(--ses-accent-light); }
     .sidebar-logout svg { width: 13px; height: 13px; }
 
     /* ── MAIN ── */
@@ -81,11 +81,11 @@
         outline: none;
         transition: border-color 0.15s;
     }
-    .filter-select:focus, .filter-input:focus { border-color: var(--ses-red); }
+    .filter-select:focus, .filter-input:focus { border-color: var(--ses-accent); }
     .filter-input { flex: 1; min-width: 160px; }
     .filter-btn {
         height: 36px;
-        background: var(--ses-red);
+        background: var(--ses-accent);
         color: white;
         border: none;
         border-radius: 8px;
@@ -110,7 +110,7 @@
         font-size: 0.83rem;
     }
     .ses-table th {
-        background: #7f1d1d;
+        background: var(--ses-red-deep);
         color: rgba(255,255,255,0.85);
         font-size: 0.65rem;
         text-transform: uppercase;
@@ -126,10 +126,10 @@
         vertical-align: middle;
     }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-red-light); }
-    .subj-code { font-weight: 600; color: var(--ses-red); font-family: monospace; font-size: 0.8rem; }
+    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .slots-text { font-size: 0.75rem; color: var(--ses-gray-400); }
-    .slots-text.full { color: #b91c1c; font-weight: 600; }
+    .slots-text.full { color: var(--ses-red-dark); font-weight: 600; }
 
     .btn-add {
         padding: 4px 13px;
@@ -148,9 +148,9 @@
     }
     .btn-add.add-btn:hover { background: var(--ses-red); color: white; }
     .btn-add.added-btn {
-        background: #dcfce7;
-        color: #15803d;
-        border: 1px solid #bbf7d0;
+        background: var(--ses-accent-light);
+        color: var(--ses-accent-dark);
+        border: 1px solid #c7daee;
         cursor: default;
     }
     .btn-remove {
@@ -159,8 +159,8 @@
         font-size: 0.72rem;
         font-weight: 600;
         cursor: pointer;
-        background: #fee2e2;
-        color: #b91c1c;
+        background: var(--ses-red-light);
+        color: var(--ses-red-dark);
         border: 1px solid #fecaca;
         font-family: 'DM Sans', sans-serif;
         transition: all 0.15s;
@@ -193,7 +193,7 @@
         margin: 0 6px;
         vertical-align: middle;
     }
-    .unit-fill { height: 100%; background: var(--ses-red); border-radius: 3px; transition: width 0.3s; }
+    .unit-fill { height: 100%; background: var(--ses-accent); border-radius: 3px; transition: width 0.3s; }
     .btn-confirm {
         height: 38px;
         background: var(--ses-red);
@@ -210,7 +210,7 @@
         gap: 6px;
         transition: background 0.15s;
     }
-    .btn-confirm:hover { background: var(--ses-red-dark); }
+    .btn-confirm:hover { background: #7d2317; }
     .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
 </style>
 @endpush

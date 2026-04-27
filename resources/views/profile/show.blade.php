@@ -3,8 +3,8 @@
 
 @push('styles')
 <style>
-    .dash-layout { display: flex; min-height: calc(100vh - 56px); }
-    .dash-sidebar { width: 200px; flex-shrink: 0; background: #7f1d1d; padding: 1.5rem 0; display: flex; flex-direction: column; }
+    .dash-layout { display: flex; min-height: calc(100vh - var(--ses-header-height) - var(--ses-content-gap)); }
+    .dash-sidebar { width: 200px; flex-shrink: 0; background: var(--ses-red-deep); padding: 1.5rem 0; display: flex; flex-direction: column; }
     .sidebar-section { padding: 0 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.75rem; }
     .sidebar-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.35); padding: 0 1.1rem; margin-bottom: 0.3rem; }
     .sidebar-item { display: flex; align-items: center; gap: 9px; padding: 9px 1.1rem; font-size: 0.84rem; color: rgba(255,255,255,0.65); text-decoration: none; border-right: 3px solid transparent; transition: all 0.15s; }
@@ -12,21 +12,21 @@
     .sidebar-item svg { width: 15px; height: 15px; flex-shrink: 0; }
     .sidebar-footer { margin-top: auto; padding: 0.75rem 1.1rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
     .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.45); cursor: pointer; }
-    .sidebar-logout:hover { color: #fca5a5; }
+    .sidebar-logout:hover { color: var(--ses-accent-light); }
 
     .profile-main { flex: 1; padding: 1.75rem 2rem; background: var(--ses-gray-100); }
     .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
     .profile-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ses-gray-900); }
-    .btn-edit { padding: 9px 18px; background: var(--ses-red); color: white; border-radius: 9px; font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .btn-edit { padding: 9px 18px; background: var(--ses-accent); color: white; border-radius: 9px; font-size: 0.85rem; font-weight: 600; text-decoration: none; }
     .profile-card { background: white; border-radius: 14px; border: 1px solid var(--ses-gray-200); padding: 1.75rem; margin-bottom: 1.25rem; }
-    .section-head { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-red); padding-bottom: 0.6rem; border-bottom: 1.5px solid #fecaca; margin-bottom: 1rem; }
+    .section-head { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-accent); padding-bottom: 0.6rem; border-bottom: 1.5px solid #c7daee; margin-bottom: 1rem; }
     .detail-row { display: flex; padding: 0.5rem 0; border-bottom: 1px solid var(--ses-gray-100); font-size: 0.85rem; }
     .detail-row:last-child { border-bottom: none; }
     .detail-label { width: 160px; flex-shrink: 0; color: var(--ses-gray-400); font-size: 0.78rem; font-weight: 500; }
     .avatar-circle { width: 72px; height: 72px; border-radius: 50%; background: var(--ses-red); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: white; margin-bottom: 0.75rem; }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
-    .pill.enrolled { background: #dcfce7; color: #15803d; }
-    .pill.pending  { background: #fee2e2; color: #b91c1c; }
+    .pill.enrolled { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
+    .pill.pending  { background: var(--ses-red-light); color: var(--ses-red-dark); }
 </style>
 @endpush
 
@@ -83,7 +83,7 @@
                     <div style="margin-top:5px;"><span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">{{ $student->is_enrolled ? 'Enrolled' : 'Not yet enrolled' }}</span></div>
                 </div>
                 <div style="margin-left:auto;text-align:right;">
-                    <div style="font-family:monospace;font-size:1rem;font-weight:700;color:var(--ses-red);">{{ $student->student_id }}</div>
+                    <div style="font-size:1rem;font-weight:700;color:var(--ses-red);letter-spacing:0.05em;">{{ $student->student_id }}</div>
                     <div style="font-size:0.7rem;color:var(--ses-gray-400);text-transform:uppercase;letter-spacing:0.06em;">Student ID</div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
             <div class="section-head">Enrolled Subjects ({{ $student->enrollments->count() }})</div>
             @foreach($student->enrollments as $e)
             <div class="detail-row">
-                <span class="detail-label" style="font-family:monospace;font-size:0.8rem;color:var(--ses-red);font-weight:600;">{{ $e->subject->code }}</span>
+                <span class="detail-label" style="font-size:0.8rem;color:var(--ses-red);font-weight:700;letter-spacing:0.03em;">{{ $e->subject->code }}</span>
                 <span style="flex:1;">{{ $e->subject->name }}</span>
                 <span style="font-size:0.75rem;color:var(--ses-gray-400);">{{ $e->subject->units }} units · {{ $e->subject->schedule }}</span>
             </div>
