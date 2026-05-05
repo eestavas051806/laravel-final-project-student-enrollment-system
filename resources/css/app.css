@@ -1,5 +1,61 @@
-/* EduEnroll – Student Enrollment System
-   Main CSS entry point.
-   All page-level styles are written inline in Blade views
-   following the same convention as the example project.
-*/
+/*
+ * EduEnroll design system — warm white · soft beige · red accent
+ */
+
+:root {
+    --ses-header-height: 64px;
+    --ses-content-gap: 20px;
+
+    /* Red accent (use sparingly) */
+    --ses-red: #c43d3d;
+    --ses-red-hover: #a93232;
+    --ses-red-dark: #943232;
+    --ses-red-muted: rgba(196, 61, 61, 0.88);
+    --ses-red-soft: #fdf7f7;
+    --ses-red-100: #fae4e4;
+    --ses-red-light: var(--ses-red-soft);
+    --ses-red-deep: #6b2f2f;
+
+    /* Neutrals (warm stone) */
+    --ses-bg: #ffffff;
+    --ses-bg-page: #faf9f6;
+    --ses-beige: #f3efe8;
+    --ses-beige-muted: #e9e4da;
+    --ses-white: #ffffff;
+    --ses-border: #e8e4dc;
+    --ses-text: #3f3a36;
+    --ses-text-soft: #5c574f;
+    --ses-text-muted: #8a8378;
+    --ses-gray-50: #fcfbf9;
+    --ses-gray-100: #f5f2ec;
+    --ses-gray-200: var(--ses-border);
+    --ses-gray-400: #a69f93;
+    --ses-gray-600: var(--ses-text-soft);
+    --ses-gray-900: var(--ses-text);
+
+    /* Legacy “accent” aliases → beige / warm neutral (no blue) */
+    --ses-accent: #5c574f;
+    --ses-accent-dark: #433d37;
+    --ses-accent-light: #ebe6de;
+
+    --ses-success-bg: #f0f4ef;
+    --ses-success-border: #dfe8dd;
+    --ses-success-text: #3d593f;
+
+    --ses-radius-sm: 10px;
+    --ses-radius-md: 14px;
+    --ses-radius-lg: 20px;
+
+    --ses-shadow-sm: 0 1px 2px rgba(63, 58, 54, 0.05);
+    --ses-shadow-md: 0 8px 30px rgba(63, 58, 54, 0.08);
+}
+
+.form-check-input:focus {
+    border-color: rgba(196, 61, 61, 0.45);
+    box-shadow: 0 0 0 0.2rem rgba(196, 61, 61, 0.12);
+}
+
+.form-check-input:checked {
+    background-color: var(--ses-red);
+    border-color: var(--ses-red);
+}

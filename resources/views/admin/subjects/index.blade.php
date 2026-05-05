@@ -5,23 +5,25 @@
 <style>
     .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
     .page-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ses-gray-900); }
-    .btn-add-new { padding: 9px 18px; background: var(--ses-accent); color: white; border-radius: 9px; font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .btn-add-new { padding: 9px 18px; background: var(--ses-red); color: white; border-radius: var(--ses-radius-sm); font-size: 0.85rem; font-weight: 600; text-decoration: none; box-shadow: var(--ses-shadow-sm); }
+    .btn-add-new:hover { background: var(--ses-red-hover); color: white; }
     .filter-bar { display: flex; gap: 0.65rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .filter-select, .filter-input { height: 36px; border: 1.5px solid var(--ses-gray-200); border-radius: 8px; padding: 0 12px; font-size: 0.82rem; font-family: 'DM Sans', sans-serif; background: white; color: var(--ses-gray-900); outline: none; }
+    .filter-select, .filter-input { height: 38px; border: 1.5px solid var(--ses-border); border-radius: var(--ses-radius-sm); padding: 0 12px; font-size: 0.82rem; font-family: 'DM Sans', system-ui, sans-serif; background: var(--ses-bg); color: var(--ses-gray-900); outline: none; }
     .filter-input { flex: 1; min-width: 200px; }
-    .filter-btn { height: 36px; background: var(--ses-accent); color: white; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-    .ses-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--ses-gray-200); font-size: 0.83rem; }
-    .ses-table th { background: var(--ses-red-deep); color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
+    .filter-btn { height: 38px; background: var(--ses-red); color: white; border: none; border-radius: var(--ses-radius-sm); padding: 0 18px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', system-ui, sans-serif; }
+    .filter-btn:hover { background: var(--ses-red-hover); }
+    .ses-table { width: 100%; border-collapse: collapse; background: var(--ses-bg); border-radius: var(--ses-radius-md); overflow: hidden; border: 1px solid var(--ses-border); font-size: 0.83rem; box-shadow: var(--ses-shadow-sm); }
+    .ses-table th { background: var(--ses-beige-muted); color: var(--ses-text-soft); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--ses-border); }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .ses-table tbody tr:hover td { background: var(--ses-beige); }
     .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .dept-pill { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; background: var(--ses-red-light); color: var(--ses-red); }
     .active-pill { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
-    .active-pill.yes { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
-    .active-pill.no  { background: #f3f4f6; color: #6b7280; }
+    .active-pill.yes { background: var(--ses-success-bg); color: var(--ses-success-text); }
+    .active-pill.no  { background: var(--ses-beige); color: var(--ses-text-muted); }
     .action-btn { font-size: 0.75rem; text-decoration: none; padding: 3px 9px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-    .action-btn.edit   { color: var(--ses-accent); background: var(--ses-accent-light); }
+    .action-btn.edit   { color: var(--ses-text-soft); background: var(--ses-beige); border: 1px solid var(--ses-border); }
     .action-btn.delete { color: #b91c1c; background: #fee2e2; }
 </style>
 @endpush

@@ -4,14 +4,14 @@
 @push('styles')
 <style>
     .page-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ses-gray-900); margin-bottom: 1.25rem; }
-    .ses-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--ses-gray-200); font-size: 0.83rem; }
-    .ses-table th { background: var(--ses-red-deep); color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
+    .ses-table { width: 100%; border-collapse: collapse; background: var(--ses-bg); border-radius: var(--ses-radius-md); overflow: hidden; border: 1px solid var(--ses-border); font-size: 0.83rem; box-shadow: var(--ses-shadow-sm); }
+    .ses-table th { background: var(--ses-beige-muted); color: var(--ses-text-soft); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--ses-border); }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .ses-table tbody tr:hover td { background: var(--ses-beige); }
     .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
-    .pill.enrolled { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
+    .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
     .pill.waitlisted { background: #fef9c3; color: #854d0e; }
     .pill.dropped { background: #fee2e2; color: #b91c1c; }
 </style>

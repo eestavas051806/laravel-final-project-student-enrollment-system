@@ -108,27 +108,33 @@ class AdminController extends Controller
 
     public function updateStudent(Request $request, Student $student)
     {
-        if (! session('admin_logged_in')) return redirect()->route('admin.login');
+    if (! session('admin_logged_in')) return redirect()->route('admin.login');
 
-        $request->validate([
-            'first_name'       => 'required|string|max:255',
-            'last_name'        => 'required|string|max:255',
-            'middle_name'      => 'nullable|string|max:255',
-            'email'            => 'required|email|unique:students,email,' . $student->id,
-            'course'           => 'required|string',
-            'year_level'       => 'required|string',
-            'contact_number'   => 'required|string|max:20',
-            'complete_address' => 'required|string',
-            'is_enrolled'      => 'nullable|boolean',
-        ]);
+    $request->validate([
+        'first_name'       => 'required|string|max:255',
+        'last_name'        => 'required|string|max:255',
+        'middle_name'      => 'nullable|string|max:255',
+        'email'            => 'required|email|unique:students,email,' . $student->id,
+        'course'           => 'required|string',
+        'year_level'       => 'required|string',
+        'contact_number'   => 'required|string|max:20',
+        'complete_address' => 'required|string',
+    ]);
 
-        $data = $request->except(['_token', '_method']);
-        $data['is_enrolled'] = $request->has('is_enrolled');
+    $student->update([
+        'first_name'       => $request->first_name,
+        'last_name'        => $request->last_name,
+        'middle_name'      => $request->middle_name,
+        'email'            => $request->email,
+        'course'           => $request->course,
+        'year_level'       => $request->year_level,
+        'contact_number'   => $request->contact_number,
+        'complete_address' => $request->complete_address,
+        'is_enrolled'      => $request->has('is_enrolled') ? 1 : 0,
+    ]);
 
-        $student->update($data);
-
-        return redirect()->route('admin.students')->with('success', 'Student updated successfully.');
-    }
+    return redirect()->route('admin.students')->with('success', 'Student updated successfully.');
+}
 
     public function destroyStudent(Student $student)
     {

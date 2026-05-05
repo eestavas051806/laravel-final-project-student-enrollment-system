@@ -5,31 +5,33 @@
 <style>
     .dash-layout { display: flex; min-height: calc(100vh - var(--ses-header-height) - var(--ses-content-gap)); }
     .dash-sidebar {
-        width: 200px; flex-shrink: 0; background: var(--ses-red-deep);
-        padding: 1.5rem 0; display: flex; flex-direction: column;
+        width: 220px; flex-shrink: 0; background: var(--ses-beige);
+        padding: 1.35rem 0; display: flex; flex-direction: column; border-right: 1px solid var(--ses-border);
     }
-    .sidebar-section { padding: 0 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.75rem; }
-    .sidebar-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.35); padding: 0 1.1rem; margin-bottom: 0.3rem; }
-    .sidebar-item { display: flex; align-items: center; gap: 9px; padding: 9px 1.1rem; font-size: 0.84rem; color: rgba(255,255,255,0.65); text-decoration: none; border-right: 3px solid transparent; transition: all 0.15s; }
-    .sidebar-item:hover, .sidebar-item.active { background: rgba(255,255,255,0.1); color: white; border-right-color: white; }
+    .sidebar-section { padding: 0 0 1rem; border-bottom: 1px solid var(--ses-border); margin-bottom: 0.75rem; }
+    .sidebar-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-text-muted); padding: 0 1rem; margin-bottom: 0.35rem; }
+    .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 1rem; font-size: 0.84rem; color: var(--ses-text-soft); text-decoration: none; border-radius: 0 var(--ses-radius-sm) var(--ses-radius-sm) 0; margin-right: 8px; border-left: 3px solid transparent; transition: background 0.15s, color 0.15s; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.72); color: var(--ses-gray-900); }
+    .sidebar-item.active { background: var(--ses-bg); color: var(--ses-red); border-left-color: var(--ses-red); box-shadow: var(--ses-shadow-sm); }
     .sidebar-item svg { width: 15px; height: 15px; flex-shrink: 0; }
-    .sidebar-footer { margin-top: auto; padding: 0.75rem 1.1rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
-    .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.45); cursor: pointer; }
-    .sidebar-logout:hover { color: var(--ses-accent-light); }
+    .sidebar-footer { margin-top: auto; padding: 0.85rem 1rem 0; border-top: 1px solid var(--ses-border); }
+    .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--ses-text-muted); cursor: pointer; font-family: inherit; }
+    .sidebar-logout:hover { color: var(--ses-red); }
     .sidebar-logout svg { width: 13px; height: 13px; }
 
-    .subj-main { flex: 1; padding: 1.75rem 2rem; background: var(--ses-gray-100); }
+    .subj-main { flex: 1; padding: 2rem 2.25rem 3rem; background: var(--ses-bg-page); }
     .subj-main h2 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ses-gray-900); margin-bottom: 0.15rem; }
     .subj-main p { font-size: 0.78rem; color: var(--ses-gray-400); margin-bottom: 1.25rem; }
     .filter-bar { display: flex; gap: 0.65rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
-    .filter-select, .filter-input { height: 36px; border: 1.5px solid var(--ses-gray-200); border-radius: 8px; padding: 0 12px; font-size: 0.82rem; font-family: 'DM Sans', sans-serif; background: white; color: var(--ses-gray-900); outline: none; }
+    .filter-select, .filter-input { height: 38px; border: 1.5px solid var(--ses-border); border-radius: var(--ses-radius-sm); padding: 0 12px; font-size: 0.82rem; font-family: 'DM Sans', system-ui, sans-serif; background: var(--ses-bg); color: var(--ses-gray-900); outline: none; }
     .filter-input { flex: 1; min-width: 160px; }
-    .filter-btn { height: 36px; background: var(--ses-accent); color: white; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-    .ses-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--ses-gray-200); font-size: 0.83rem; }
-    .ses-table th { background: var(--ses-red-deep); color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
+    .filter-btn { height: 38px; background: var(--ses-red); color: white; border: none; border-radius: var(--ses-radius-sm); padding: 0 18px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', system-ui, sans-serif; }
+    .filter-btn:hover { background: var(--ses-red-hover); }
+    .ses-table { width: 100%; border-collapse: collapse; background: var(--ses-bg); border-radius: var(--ses-radius-md); overflow: hidden; border: 1px solid var(--ses-border); font-size: 0.83rem; box-shadow: var(--ses-shadow-sm); }
+    .ses-table th { background: var(--ses-beige-muted); color: var(--ses-text-soft); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--ses-border); }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); color: var(--ses-gray-900); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .ses-table tbody tr:hover td { background: var(--ses-beige); }
     .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .dept-pill { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; background: var(--ses-red-light); color: var(--ses-red); }
     .avail { font-size: 0.75rem; color: var(--ses-gray-400); }
@@ -126,7 +128,7 @@
                     </td>
                     <td>
                         @if($isEnrolled)
-                            <span style="font-size:0.75rem;color:var(--ses-accent-dark);font-weight:600;">✓ Enrolled</span>
+                            <span style="font-size:0.75rem;color:var(--ses-success-text);font-weight:600;">✓ Enrolled</span>
                         @elseif($available > 0)
                             <a href="{{ route('enrollments.index') }}" class="btn-enroll-link">Enroll →</a>
                         @else

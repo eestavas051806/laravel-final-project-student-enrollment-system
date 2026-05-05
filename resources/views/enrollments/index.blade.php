@@ -7,62 +7,71 @@
 
     /* ── SIDEBAR ── */
     .dash-sidebar {
-        width: 200px;
+        width: 220px;
         flex-shrink: 0;
-        background: var(--ses-red-deep);
-        padding: 1.5rem 0;
+        background: var(--ses-beige);
+        padding: 1.35rem 0;
         display: flex;
         flex-direction: column;
+        border-right: 1px solid var(--ses-border);
     }
     .sidebar-section {
         padding: 0 0 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
+        border-bottom: 1px solid var(--ses-border);
         margin-bottom: 0.75rem;
     }
     .sidebar-label {
         font-size: 0.6rem;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: rgba(255,255,255,0.35);
-        padding: 0 1.1rem;
-        margin-bottom: 0.3rem;
+        letter-spacing: 0.12em;
+        color: var(--ses-text-muted);
+        padding: 0 1rem;
+        margin-bottom: 0.35rem;
     }
     .sidebar-item {
         display: flex;
         align-items: center;
-        gap: 9px;
-        padding: 9px 1.1rem;
+        gap: 10px;
+        padding: 10px 1rem;
         font-size: 0.84rem;
-        color: rgba(255,255,255,0.65);
+        color: var(--ses-text-soft);
         text-decoration: none;
-        border-right: 3px solid transparent;
-        transition: all 0.15s;
+        border-radius: 0 var(--ses-radius-sm) var(--ses-radius-sm) 0;
+        margin-right: 8px;
+        border-left: 3px solid transparent;
+        transition: background 0.15s, color 0.15s;
     }
-    .sidebar-item:hover, .sidebar-item.active {
-        background: rgba(255,255,255,0.1);
-        color: white;
-        border-right-color: white;
+    .sidebar-item:hover {
+        background: rgba(255,255,255,0.72);
+        color: var(--ses-gray-900);
+    }
+    .sidebar-item.active {
+        background: var(--ses-bg);
+        color: var(--ses-red);
+        border-left-color: var(--ses-red);
+        box-shadow: var(--ses-shadow-sm);
     }
     .sidebar-item svg { width: 15px; height: 15px; flex-shrink: 0; }
     .sidebar-footer {
         margin-top: auto;
-        padding: 0.75rem 1.1rem 0;
-        border-top: 1px solid rgba(255,255,255,0.08);
+        padding: 0.85rem 1rem 0;
+        border-top: 1px solid var(--ses-border);
     }
     .sidebar-logout {
         display: flex;
         align-items: center;
         gap: 8px;
         font-size: 0.78rem;
-        color: rgba(255,255,255,0.45);
+        color: var(--ses-text-muted);
         cursor: pointer;
+        font-family: inherit;
     }
-    .sidebar-logout:hover { color: var(--ses-accent-light); }
+    .sidebar-logout:hover { color: var(--ses-red); }
     .sidebar-logout svg { width: 13px; height: 13px; }
 
     /* ── MAIN ── */
-    .enroll-main { flex: 1; padding: 1.75rem 2rem; background: var(--ses-gray-100); overflow: auto; }
+    .enroll-main { flex: 1; padding: 2rem 2.25rem 3rem; background: var(--ses-bg-page); overflow: auto; }
     .enroll-header { margin-bottom: 1.25rem; }
     .enroll-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ses-gray-900); margin-bottom: 0.15rem; }
     .enroll-header p { font-size: 0.78rem; color: var(--ses-gray-400); }
@@ -70,39 +79,41 @@
     /* ── FILTERS ── */
     .filter-bar { display: flex; gap: 0.65rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
     .filter-select, .filter-input {
-        height: 36px;
-        border: 1.5px solid var(--ses-gray-200);
-        border-radius: 8px;
+        height: 38px;
+        border: 1.5px solid var(--ses-border);
+        border-radius: var(--ses-radius-sm);
         padding: 0 12px;
         font-size: 0.82rem;
-        font-family: 'DM Sans', sans-serif;
-        background: white;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        background: var(--ses-bg);
         color: var(--ses-gray-900);
         outline: none;
         transition: border-color 0.15s;
     }
-    .filter-select:focus, .filter-input:focus { border-color: var(--ses-accent); }
+    .filter-select:focus, .filter-input:focus { border-color: rgba(196, 61, 61, 0.45); box-shadow: 0 0 0 3px rgba(196, 61, 61, 0.08); }
     .filter-input { flex: 1; min-width: 160px; }
     .filter-btn {
-        height: 36px;
-        background: var(--ses-accent);
+        height: 38px;
+        background: var(--ses-red);
         color: white;
         border: none;
-        border-radius: 8px;
-        padding: 0 16px;
+        border-radius: var(--ses-radius-sm);
+        padding: 0 18px;
         font-size: 0.82rem;
         font-weight: 600;
         cursor: pointer;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'DM Sans', system-ui, sans-serif;
     }
+    .filter-btn:hover { background: var(--ses-red-hover); }
 
     /* ── SUBJECT TABLE ── */
     .subj-table-wrap {
-        background: white;
-        border-radius: 12px;
-        border: 1px solid var(--ses-gray-200);
+        background: var(--ses-bg);
+        border-radius: var(--ses-radius-md);
+        border: 1px solid var(--ses-border);
         overflow: hidden;
         margin-bottom: 0;
+        box-shadow: var(--ses-shadow-sm);
     }
     .ses-table {
         width: 100%;
@@ -110,14 +121,15 @@
         font-size: 0.83rem;
     }
     .ses-table th {
-        background: var(--ses-red-deep);
-        color: rgba(255,255,255,0.85);
+        background: var(--ses-beige-muted);
+        color: var(--ses-text-soft);
         font-size: 0.65rem;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         font-weight: 600;
-        padding: 10px 14px;
+        padding: 11px 16px;
         text-align: left;
+        border-bottom: 1px solid var(--ses-border);
     }
     .ses-table td {
         padding: 10px 14px;
@@ -126,7 +138,7 @@
         vertical-align: middle;
     }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .ses-table tbody tr:hover td { background: var(--ses-beige); }
     .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .slots-text { font-size: 0.75rem; color: var(--ses-gray-400); }
     .slots-text.full { color: var(--ses-red-dark); font-weight: 600; }
@@ -148,9 +160,9 @@
     }
     .btn-add.add-btn:hover { background: var(--ses-red); color: white; }
     .btn-add.added-btn {
-        background: var(--ses-accent-light);
-        color: var(--ses-accent-dark);
-        border: 1px solid #c7daee;
+        background: var(--ses-beige-muted);
+        color: var(--ses-text-soft);
+        border: 1px solid var(--ses-border);
         cursor: default;
     }
     .btn-remove {
@@ -173,11 +185,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.9rem 1rem;
-        background: white;
-        border-top: 1px solid var(--ses-gray-200);
-        border-radius: 0 0 12px 12px;
-        border: 1px solid var(--ses-gray-200);
+        padding: 1rem 1.15rem;
+        background: var(--ses-beige);
+        border-top: 1px solid var(--ses-border);
+        border-radius: 0 0 var(--ses-radius-md) var(--ses-radius-md);
+        border-left: 1px solid var(--ses-border);
+        border-right: 1px solid var(--ses-border);
+        border-bottom: 1px solid var(--ses-border);
         border-top: none;
         margin-top: -1px;
     }
@@ -193,7 +207,7 @@
         margin: 0 6px;
         vertical-align: middle;
     }
-    .unit-fill { height: 100%; background: var(--ses-accent); border-radius: 3px; transition: width 0.3s; }
+    .unit-fill { height: 100%; background: var(--ses-red); border-radius: 3px; transition: width 0.3s; }
     .btn-confirm {
         height: 38px;
         background: var(--ses-red);
@@ -210,7 +224,7 @@
         gap: 6px;
         transition: background 0.15s;
     }
-    .btn-confirm:hover { background: #7d2317; }
+    .btn-confirm:hover { background: var(--ses-red-hover); }
     .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
 </style>
 @endpush
@@ -317,7 +331,7 @@
                                     <button type="submit" class="btn-remove">Remove</button>
                                 </form>
                             @elseif($isFull)
-                                <span class="btn-add added-btn" style="background:#f3f4f6;color:var(--ses-gray-400);border-color:var(--ses-gray-200);">Full</span>
+                                <span class="btn-add added-btn" style="background:var(--ses-beige);color:var(--ses-text-muted);border-color:var(--ses-border);">Full</span>
                             @else
                                 <form action="{{ route('enrollments.store') }}" method="POST" style="display:inline;">
                                     @csrf

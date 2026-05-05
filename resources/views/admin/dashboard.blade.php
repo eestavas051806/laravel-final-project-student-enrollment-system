@@ -6,28 +6,28 @@
     .page-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ses-gray-900); margin-bottom: 0.15rem; }
     .page-sub   { font-size: 0.78rem; color: var(--ses-gray-400); margin-bottom: 1.5rem; }
     .stat-row   { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
-    .stat-card  { background: white; border-radius: 14px; padding: 1.1rem 1.25rem; border: 1px solid var(--ses-gray-200); position: relative; overflow: hidden; }
+    .stat-card  { background: var(--ses-bg); border-radius: var(--ses-radius-md); padding: 1.2rem 1.35rem; border: 1px solid var(--ses-border); position: relative; overflow: hidden; box-shadow: var(--ses-shadow-sm); }
     .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
     .stat-card.c-red::before   { background: var(--ses-red); }
-    .stat-card.c-blue::before  { background: var(--ses-accent); }
-    .stat-card.c-green::before { background: #e0837a; }
-    .stat-card.c-amber::before { background: var(--ses-red-dark); }
-    .stat-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.65rem; font-size: 15px; }
-    .stat-icon.red   { background: var(--ses-red-light); }
-    .stat-icon.blue  { background: var(--ses-accent-light); }
-    .stat-icon.green { background: #fff3f2; }
-    .stat-icon.amber { background: var(--ses-red-light); }
+    .stat-card.c-blue::before  { background: var(--ses-beige-muted); }
+    .stat-card.c-green::before { background: #daa8a0; }
+    .stat-card.c-amber::before { background: var(--ses-red-muted); opacity: .85; }
+    .stat-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.65rem; font-size: 15px; }
+    .stat-icon.red   { background: var(--ses-red-soft); }
+    .stat-icon.blue  { background: var(--ses-beige); }
+    .stat-icon.green { background: var(--ses-red-soft); }
+    .stat-icon.amber { background: var(--ses-beige); }
     .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ses-gray-900); line-height: 1; margin-bottom: 2px; }
     .stat-lbl { font-size: 0.68rem; color: var(--ses-gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; }
     .sec-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ses-gray-600); margin-bottom: 0.65rem; display: flex; justify-content: space-between; align-items: center; }
     .sec-title a { color: var(--ses-red); text-decoration: none; font-size: 0.7rem; font-weight: 500; }
-    .ses-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--ses-gray-200); font-size: 0.83rem; }
-    .ses-table th { background: var(--ses-red-deep); color: rgba(255,255,255,0.85); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 10px 14px; text-align: left; }
+    .ses-table { width: 100%; border-collapse: collapse; background: var(--ses-bg); border-radius: var(--ses-radius-md); overflow: hidden; border: 1px solid var(--ses-border); font-size: 0.83rem; box-shadow: var(--ses-shadow-sm); }
+    .ses-table th { background: var(--ses-beige-muted); color: var(--ses-text-soft); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--ses-border); }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); color: var(--ses-gray-900); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
-    .ses-table tbody tr:hover td { background: var(--ses-accent-light); }
+    .ses-table tbody tr:hover td { background: var(--ses-beige); }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
-    .pill.enrolled { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
+    .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
     .pill.pending  { background: #fee2e2; color: #b91c1c; }
 </style>
 @endpush
@@ -96,7 +96,7 @@
             </td>
             <td>
                 <a href="{{ route('admin.students.show', $student) }}" style="font-size:0.75rem;color:var(--ses-red);text-decoration:none;margin-right:8px;">View</a>
-                <a href="{{ route('admin.students.edit', $student) }}" style="font-size:0.75rem;color:var(--ses-accent);text-decoration:none;">Edit</a>
+                <a href="{{ route('admin.students.edit', $student) }}" style="font-size:0.75rem;color:var(--ses-text-soft);font-weight:600;text-decoration:none;">Edit</a>
             </td>
         </tr>
         @empty

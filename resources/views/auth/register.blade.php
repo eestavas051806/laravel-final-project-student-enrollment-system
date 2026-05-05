@@ -3,7 +3,7 @@
 
 @push('styles')
 <style>
-    body { background: var(--ses-red-deep) !important; }
+    body { background: var(--ses-bg-page) !important; }
     .reg-wrap {
         min-height: 100vh;
         display: flex;
@@ -11,17 +11,18 @@
         justify-content: center;
         padding: 3rem 1rem;
         background:
-            radial-gradient(circle at 20% 20%, rgba(192,57,43,0.4) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(150,40,27,0.5) 0%, transparent 50%),
-            #7f1d1d;
+            radial-gradient(ellipse 90% 70% at 15% -10%, rgba(196, 61, 61, 0.09) 0%, transparent 55%),
+            radial-gradient(ellipse 80% 60% at 100% 110%, rgba(233, 228, 218, 0.9) 0%, transparent 55%),
+            var(--ses-bg-page);
     }
     .reg-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2.25rem;
+        background: var(--ses-bg);
+        border-radius: var(--ses-radius-lg);
+        padding: 2.35rem;
         width: 100%;
         max-width: 680px;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        border: 1px solid var(--ses-border);
+        box-shadow: var(--ses-shadow-md);
     }
     .reg-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ses-gray-900); margin-bottom: 0.2rem; }
     .reg-subtitle { font-size: 0.8rem; color: var(--ses-gray-400); margin-bottom: 1.5rem; }
@@ -30,9 +31,9 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        color: var(--ses-red);
+        color: var(--ses-red-muted);
         padding-bottom: 0.6rem;
-        border-bottom: 1.5px solid #fecaca;
+        border-bottom: 1px solid var(--ses-border);
         margin: 1.25rem 0 0.85rem;
     }
     .ses-label {
@@ -47,22 +48,22 @@
     .ses-input, .ses-select {
         width: 100%;
         height: 40px;
-        border: 1.5px solid var(--ses-gray-200);
-        border-radius: 9px;
+        border: 1.5px solid var(--ses-border);
+        border-radius: var(--ses-radius-sm);
         padding: 0 12px;
         font-size: 0.87rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'DM Sans', system-ui, sans-serif;
         color: var(--ses-gray-900);
-        background: var(--ses-gray-50);
+        background: var(--ses-beige);
         outline: none;
-        transition: border-color 0.15s;
+        transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .ses-input:focus, .ses-select:focus { border-color: var(--ses-red); background: white; }
+    .ses-input:focus, .ses-select:focus { border-color: rgba(196, 61, 61, 0.45); background: var(--ses-bg); box-shadow: 0 0 0 3px rgba(196, 61, 61, 0.08); }
     .ses-input.is-error, .ses-select.is-error { border-color: var(--ses-red); }
     .ses-input:disabled { opacity: 0.5; cursor: not-allowed; }
     .id-photo-box {
-        border: 1.5px dashed var(--ses-gray-200);
-        border-radius: 9px;
+        border: 1.5px dashed var(--ses-border);
+        border-radius: var(--ses-radius-sm);
         height: 80px;
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;
@@ -77,10 +78,10 @@
     .ses-btn-outline {
         flex: 1;
         height: 44px;
-        background: white;
-        color: var(--ses-gray-600);
-        border: 1.5px solid var(--ses-gray-200);
-        border-radius: 10px;
+        background: var(--ses-bg);
+        color: var(--ses-text-soft);
+        border: 1.5px solid var(--ses-border);
+        border-radius: var(--ses-radius-sm);
         font-size: 0.87rem;
         font-weight: 500;
         cursor: pointer;
@@ -99,7 +100,7 @@
         font-family: 'DM Sans', sans-serif;
         transition: background 0.15s;
     }
-    .ses-btn-primary:hover { background: var(--ses-red-dark); }
+    .ses-btn-primary:hover { background: var(--ses-red-hover); }
     .ses-link { color: var(--ses-red); text-decoration: none; font-weight: 500; }
 </style>
 @endpush

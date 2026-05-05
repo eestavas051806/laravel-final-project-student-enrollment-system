@@ -3,14 +3,14 @@
 
 @push('styles')
 <style>
-    .detail-card { background: white; border-radius: 14px; border: 1px solid var(--ses-gray-200); padding: 1.75rem; margin-bottom: 1.25rem; }
-    .section-head { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-accent); padding-bottom: 0.6rem; border-bottom: 1.5px solid #c7daee; margin-bottom: 1rem; }
+    .detail-card { background: var(--ses-bg); border-radius: var(--ses-radius-md); border: 1px solid var(--ses-border); padding: 1.75rem 1.85rem; margin-bottom: 1.35rem; box-shadow: var(--ses-shadow-sm); }
+    .section-head { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-red-muted); padding-bottom: 0.65rem; border-bottom: 1px solid var(--ses-border); margin-bottom: 1rem; }
     .detail-row { display: flex; padding: 0.5rem 0; border-bottom: 1px solid var(--ses-gray-100); font-size: 0.85rem; }
     .detail-row:last-child { border-bottom: none; }
     .detail-label { width: 160px; flex-shrink: 0; color: var(--ses-gray-400); font-size: 0.78rem; font-weight: 500; }
     .detail-val { color: var(--ses-gray-900); flex: 1; }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
-    .pill.enrolled { background: var(--ses-accent-light); color: var(--ses-accent-dark); }
+    .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
     .pill.pending  { background: #fee2e2; color: #b91c1c; }
     .ses-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
     .ses-table th { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ses-gray-400); font-weight: 600; padding: 0 14px 8px; text-align: left; border-bottom: 1px solid var(--ses-gray-200); }
@@ -27,12 +27,12 @@
         <div style="font-size:0.75rem;color:var(--ses-gray-400);">Student ID: {{ $student->student_id }}</div>
     </div>
     <div style="display:flex;gap:0.6rem;">
-        <a href="{{ route('admin.students.edit', $student) }}" style="padding:8px 16px;background:var(--ses-accent-light);color:var(--ses-accent);border-radius:9px;font-size:0.83rem;font-weight:600;text-decoration:none;">✏️ Edit</a>
+        <a href="{{ route('admin.students.edit', $student) }}" style="padding:9px 16px;background:var(--ses-red);color:white;border-radius:var(--ses-radius-sm);font-size:0.83rem;font-weight:600;text-decoration:none;box-shadow:var(--ses-shadow-sm);">✏️ Edit</a>
         <form action="{{ route('admin.students.destroy', $student) }}" method="POST" onsubmit="return confirm('Delete this student?')">
             @csrf @method('DELETE')
             <button type="submit" style="padding:8px 16px;background:#fee2e2;color:#b91c1c;border-radius:9px;font-size:0.83rem;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;">🗑 Delete</button>
         </form>
-        <a href="{{ route('admin.students') }}" style="padding:8px 16px;background:var(--ses-gray-100);color:var(--ses-gray-600);border-radius:9px;font-size:0.83rem;font-weight:500;text-decoration:none;">← Back</a>
+        <a href="{{ route('admin.students') }}" style="padding:9px 16px;background:var(--ses-beige);color:var(--ses-text-soft);border:1px solid var(--ses-border);border-radius:var(--ses-radius-sm);font-size:0.83rem;font-weight:600;text-decoration:none;">← Back</a>
     </div>
 </div>
 

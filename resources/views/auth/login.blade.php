@@ -3,7 +3,7 @@
 
 @push('styles')
 <style>
-    body { background: var(--ses-red-deep) !important; }
+    body { background: var(--ses-bg-page) !important; }
     .login-wrap {
         min-height: 100vh;
         display: flex;
@@ -11,22 +11,23 @@
         justify-content: center;
         padding: 2rem;
         background:
-            radial-gradient(circle at 20% 20%, rgba(192,57,43,0.4) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(150,40,27,0.5) 0%, transparent 50%),
-            #7f1d1d;
+            radial-gradient(ellipse 90% 70% at 15% -10%, rgba(196, 61, 61, 0.09) 0%, transparent 55%),
+            radial-gradient(ellipse 80% 60% at 100% 100%, rgba(233, 228, 218, 0.9) 0%, transparent 55%),
+            var(--ses-bg-page);
     }
     .login-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2.5rem 2.25rem;
+        background: var(--ses-bg);
+        border-radius: var(--ses-radius-lg);
+        padding: 2.65rem 2.35rem;
         width: 100%;
         max-width: 400px;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        border: 1px solid var(--ses-border);
+        box-shadow: var(--ses-shadow-md);
     }
     .login-badge {
         width: 56px; height: 56px;
-        background: var(--ses-red-light);
-        border: 2px solid var(--ses-red-100);
+        background: var(--ses-beige);
+        border: 1px solid var(--ses-border);
         border-radius: 16px;
         display: flex; align-items: center; justify-content: center;
         margin: 0 auto 1.25rem;
@@ -57,17 +58,17 @@
     .ses-input {
         width: 100%;
         height: 44px;
-        border: 1.5px solid var(--ses-gray-200);
-        border-radius: 10px;
+        border: 1.5px solid var(--ses-border);
+        border-radius: var(--ses-radius-sm);
         padding: 0 14px;
         font-size: 0.9rem;
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'DM Sans', system-ui, sans-serif;
         color: var(--ses-gray-900);
-        background: var(--ses-gray-50);
+        background: var(--ses-beige);
         outline: none;
-        transition: border-color 0.15s;
+        transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .ses-input:focus { border-color: var(--ses-red); background: white; }
+    .ses-input:focus { border-color: rgba(196, 61, 61, 0.45); background: var(--ses-bg); box-shadow: 0 0 0 3px rgba(196, 61, 61, 0.08); }
     .ses-input.is-error { border-color: var(--ses-red); }
     .ses-btn-primary {
         width: 100%;
@@ -83,7 +84,7 @@
         transition: background 0.15s;
         margin-top: 0.25rem;
     }
-    .ses-btn-primary:hover { background: var(--ses-red-dark); }
+    .ses-btn-primary:hover { background: var(--ses-red-hover); }
     .ses-link { color: var(--ses-red); text-decoration: none; font-weight: 500; }
     .ses-link:hover { color: var(--ses-red-dark); }
 </style>
@@ -93,7 +94,7 @@
 <div class="login-wrap">
     <div class="login-card">
         <div class="login-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c43d3d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                 <path d="M6 12v5c3 3 9 3 12 0v-5"/>
             </svg>

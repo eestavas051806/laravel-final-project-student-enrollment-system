@@ -3,15 +3,15 @@
 
 @push('styles')
 <style>
-    .form-card { background: white; border-radius: 14px; border: 1px solid var(--ses-gray-200); padding: 1.75rem; max-width: 720px; }
-    .section-head { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-accent); padding-bottom: 0.6rem; border-bottom: 1.5px solid #c7daee; margin: 1.25rem 0 0.85rem; }
+    .form-card { background: var(--ses-bg); border-radius: var(--ses-radius-md); border: 1px solid var(--ses-border); padding: 1.75rem 1.85rem; max-width: 720px; box-shadow: var(--ses-shadow-sm); }
+    .section-head { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ses-red-muted); padding-bottom: 0.65rem; border-bottom: 1px solid var(--ses-border); margin: 1.25rem 0 0.85rem; }
     .ses-label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ses-gray-600); margin-bottom: 4px; }
     .ses-input, .ses-select { width: 100%; height: 40px; border: 1.5px solid var(--ses-gray-200); border-radius: 9px; padding: 0 12px; font-size: 0.87rem; font-family: 'DM Sans', sans-serif; color: var(--ses-gray-900); background: var(--ses-gray-50); outline: none; transition: border-color 0.15s; }
-    .ses-input:focus, .ses-select:focus { border-color: var(--ses-accent); background: white; }
+    .ses-input:focus, .ses-select:focus { border-color: rgba(196, 61, 61, 0.45); background: white; box-shadow: 0 0 0 3px rgba(196, 61, 61, 0.08); }
     .ses-textarea { width: 100%; border: 1.5px solid var(--ses-gray-200); border-radius: 9px; padding: 10px 12px; font-size: 0.87rem; font-family: 'DM Sans', sans-serif; color: var(--ses-gray-900); background: var(--ses-gray-50); outline: none; resize: vertical; }
-    .ses-textarea:focus { border-color: var(--ses-accent); background: white; }
+    .ses-textarea:focus { border-color: rgba(196, 61, 61, 0.45); background: white; box-shadow: 0 0 0 3px rgba(196, 61, 61, 0.08); }
     .btn-save { height: 42px; background: var(--ses-red); color: white; border: none; border-radius: 9px; font-size: 0.87rem; font-weight: 600; padding: 0 1.5rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-    .btn-cancel { height: 42px; background: var(--ses-gray-100); color: var(--ses-gray-600); border: 1.5px solid var(--ses-gray-200); border-radius: 9px; font-size: 0.87rem; font-weight: 500; padding: 0 1.5rem; text-decoration: none; display: inline-flex; align-items: center; }
+    .btn-cancel { height: 42px; background: var(--ses-beige); color: var(--ses-text-soft); border: 1.5px solid var(--ses-border); border-radius: var(--ses-radius-sm); font-size: 0.87rem; font-weight: 500; padding: 0 1.5rem; text-decoration: none; display: inline-flex; align-items: center; }
 </style>
 @endpush
 
@@ -66,7 +66,7 @@
             </div>
             <div class="col-12">
                 <div class="form-check">
-                    <input type="checkbox" name="is_enrolled" id="is_enrolled" class="form-check-input" {{ old('is_enrolled', $student->is_enrolled) ? 'checked' : '' }}>
+                <input type="checkbox" name="is_enrolled" id="is_enrolled" class="form-check-input" value="1" {{ old('is_enrolled', $student->is_enrolled) ? 'checked' : '' }}>
                     <label for="is_enrolled" class="form-check-label" style="font-size:0.87rem;">Mark as officially enrolled</label>
                 </div>
             </div>
