@@ -1,61 +1,331 @@
 /*
- * EduEnroll design system — warm white · soft beige · red accent
+ * EduEnroll design system - white, light gray, navy, red accent
  */
 
 :root {
     --ses-header-height: 64px;
     --ses-content-gap: 20px;
 
-    /* Red accent (use sparingly) */
-    --ses-red: #c43d3d;
-    --ses-red-hover: #a93232;
-    --ses-red-dark: #943232;
-    --ses-red-muted: rgba(196, 61, 61, 0.88);
-    --ses-red-soft: #fdf7f7;
-    --ses-red-100: #fae4e4;
-    --ses-red-light: var(--ses-red-soft);
-    --ses-red-deep: #6b2f2f;
+    --ses-navy: #0f2747;
+    --ses-navy-700: #17395f;
+    --ses-navy-800: #112f52;
+    --ses-navy-900: #0a1f39;
+    --ses-navy-soft: #e8edf5;
 
-    /* Neutrals (warm stone) */
+    --ses-red: #d62f3a;
+    --ses-red-hover: #b91f2a;
+    --ses-red-dark: #9f1d26;
+    --ses-red-muted: rgba(214, 47, 58, 0.86);
+    --ses-red-soft: #fff1f2;
+    --ses-red-100: #ffd7dc;
+    --ses-red-light: var(--ses-red-soft);
+    --ses-red-deep: #7f1d1d;
+
     --ses-bg: #ffffff;
-    --ses-bg-page: #faf9f6;
-    --ses-beige: #f3efe8;
-    --ses-beige-muted: #e9e4da;
+    --ses-bg-page: #ffffff;
+    --ses-beige: #f3f5f8;
+    --ses-beige-muted: #e6eaf0;
     --ses-white: #ffffff;
-    --ses-border: #e8e4dc;
-    --ses-text: #3f3a36;
-    --ses-text-soft: #5c574f;
-    --ses-text-muted: #8a8378;
-    --ses-gray-50: #fcfbf9;
-    --ses-gray-100: #f5f2ec;
+    --ses-border: #dfe5ed;
+    --ses-text: #172033;
+    --ses-text-soft: #435269;
+    --ses-text-muted: #7c8798;
+    --ses-gray-50: #f8fafc;
+    --ses-gray-100: #f1f4f8;
     --ses-gray-200: var(--ses-border);
-    --ses-gray-400: #a69f93;
+    --ses-gray-400: #7c8798;
     --ses-gray-600: var(--ses-text-soft);
     --ses-gray-900: var(--ses-text);
 
-    /* Legacy “accent” aliases → beige / warm neutral (no blue) */
-    --ses-accent: #5c574f;
-    --ses-accent-dark: #433d37;
-    --ses-accent-light: #ebe6de;
+    --ses-accent: var(--ses-navy);
+    --ses-accent-dark: var(--ses-navy-900);
+    --ses-accent-light: var(--ses-navy-soft);
 
-    --ses-success-bg: #f0f4ef;
-    --ses-success-border: #dfe8dd;
-    --ses-success-text: #3d593f;
+    --ses-success-bg: #ecfdf3;
+    --ses-success-border: #bbf7d0;
+    --ses-success-text: #166534;
 
-    --ses-radius-sm: 10px;
-    --ses-radius-md: 14px;
-    --ses-radius-lg: 20px;
+    --ses-radius-sm: 8px;
+    --ses-radius-md: 10px;
+    --ses-radius-lg: 12px;
 
-    --ses-shadow-sm: 0 1px 2px rgba(63, 58, 54, 0.05);
-    --ses-shadow-md: 0 8px 30px rgba(63, 58, 54, 0.08);
+    --ses-shadow-sm: 0 1px 2px rgba(15, 39, 71, 0.06);
+    --ses-shadow-md: 0 12px 34px rgba(15, 39, 71, 0.10);
+}
+
+body {
+    background: var(--ses-bg-page) !important;
+    color: var(--ses-text) !important;
+}
+
+.ses-navbar,
+.admin-topbar {
+    background: var(--ses-navy) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 12px 28px rgba(15, 39, 71, 0.16) !important;
+}
+
+.ses-logo-icon,
+.admin-logo-icon {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.ses-logo-text,
+.admin-logo-text {
+    color: #ffffff !important;
+}
+
+.ses-nav-links a {
+    color: rgba(255, 255, 255, 0.74) !important;
+}
+
+.ses-nav-links a:hover,
+.ses-nav-links a.active {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.ses-nav-links a.active {
+    box-shadow: inset 0 -3px 0 var(--ses-red) !important;
+}
+
+.ses-nav-avatar {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+}
+
+.ses-nav-user form button {
+    background: var(--ses-red) !important;
+    border-color: var(--ses-red) !important;
+    color: #ffffff !important;
+}
+
+.ses-nav-user form button:hover {
+    background: var(--ses-red-hover) !important;
+    border-color: var(--ses-red-hover) !important;
+}
+
+.admin-tag-badge {
+    background: var(--ses-red) !important;
+    border-color: var(--ses-red) !important;
+    color: #ffffff !important;
+}
+
+.dash-sidebar,
+.admin-sidebar {
+    background: var(--ses-navy) !important;
+    border-right: 0 !important;
+    color: #ffffff !important;
+}
+
+.sidebar-section,
+.sidebar-footer,
+.admin-sidebar-top,
+.admin-sidebar-footer {
+    border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+.sidebar-label,
+.admin-sidebar-section-label,
+.admin-sidebar-subtitle {
+    color: rgba(255, 255, 255, 0.52) !important;
+}
+
+.admin-sidebar-title {
+    color: #ffffff !important;
+}
+
+.sidebar-item,
+.admin-sidebar-link,
+.sidebar-logout,
+.admin-sidebar-logout {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.sidebar-item:hover,
+.admin-sidebar-link:hover,
+.sidebar-item.active,
+.admin-sidebar-link.active {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #ffffff !important;
+}
+
+.sidebar-item.active,
+.admin-sidebar-link.active {
+    border-left-color: var(--ses-red) !important;
+    box-shadow: none !important;
+}
+
+.sidebar-logout:hover,
+.admin-sidebar-logout:hover {
+    color: #ffffff !important;
+}
+
+.dash-main,
+.enroll-main,
+.subj-main,
+.admin-main {
+    background: #ffffff !important;
+}
+
+.stat-card,
+.reg-card,
+.login-card,
+.ses-table,
+.subj-table-wrap,
+.empty-state {
+    background: var(--ses-gray-50) !important;
+    border-color: var(--ses-border) !important;
+    box-shadow: var(--ses-shadow-sm) !important;
+}
+
+.ses-table th {
+    background: var(--ses-navy) !important;
+    color: #ffffff !important;
+    border-bottom-color: var(--ses-navy) !important;
+}
+
+.ses-table tbody tr:hover td {
+    background: var(--ses-navy-soft) !important;
+}
+
+.filter-select,
+.filter-input,
+.ses-input,
+.ses-select {
+    background: #ffffff !important;
+    border-color: var(--ses-border) !important;
+}
+
+.filter-select:focus,
+.filter-input:focus,
+.ses-input:focus,
+.ses-select:focus {
+    border-color: rgba(214, 47, 58, 0.45) !important;
+    box-shadow: 0 0 0 3px rgba(214, 47, 58, 0.10) !important;
+}
+
+.filter-bar,
+.enroll-footer {
+    background: var(--ses-gray-50) !important;
+    border: 1px solid var(--ses-border) !important;
+    border-radius: var(--ses-radius-md) !important;
+    padding: 0.85rem !important;
+}
+
+.filter-btn,
+.btn-red,
+.btn-confirm,
+.btn-add-new,
+.ses-btn-primary,
+.ses-btn {
+    background: var(--ses-red) !important;
+    color: #ffffff !important;
+    border-color: var(--ses-red) !important;
+}
+
+.filter-btn:hover,
+.btn-red:hover,
+.btn-confirm:hover,
+.btn-add-new:hover,
+.ses-btn-primary:hover,
+.ses-btn:hover {
+    background: var(--ses-red-hover) !important;
+    border-color: var(--ses-red-hover) !important;
+}
+
+.dept-pill,
+.btn-enroll-link,
+.action-btn.view,
+.action-btn.delete,
+.btn-add.add-btn,
+.btn-remove {
+    background: var(--ses-red-soft) !important;
+    color: var(--ses-red-dark) !important;
+    border-color: var(--ses-red-100) !important;
+}
+
+.dept-pill {
+    border: 1px solid var(--ses-red-100);
+}
+
+.btn-enroll-link:hover,
+.action-btn.view:hover,
+.btn-add.add-btn:hover,
+.btn-remove:hover {
+    background: var(--ses-red) !important;
+    color: #ffffff !important;
+}
+
+.subj-code {
+    color: var(--ses-red) !important;
+}
+
+.pill.pending {
+    background: var(--ses-red-soft) !important;
+    color: var(--ses-red-dark) !important;
 }
 
 .form-check-input:focus {
-    border-color: rgba(196, 61, 61, 0.45);
-    box-shadow: 0 0 0 0.2rem rgba(196, 61, 61, 0.12);
+    border-color: rgba(214, 47, 58, 0.45);
+    box-shadow: 0 0 0 0.2rem rgba(214, 47, 58, 0.12);
 }
 
 .form-check-input:checked {
     background-color: var(--ses-red);
     border-color: var(--ses-red);
+}
+
+.login-wrap,
+.reg-wrap {
+    background: #ffffff !important;
+}
+
+.login-badge,
+.admin-badge {
+    background: var(--ses-navy-soft) !important;
+    border-color: var(--ses-border) !important;
+}
+
+.admin-tag {
+    background: var(--ses-red-soft) !important;
+    color: var(--ses-red-dark) !important;
+    border: 1px solid var(--ses-red-100);
+}
+
+body:has(.admin-badge) {
+    background: #ffffff !important;
+}
+
+@media (max-width: 900px) {
+    .dash-layout,
+    .admin-layout {
+        flex-direction: column !important;
+    }
+
+    .dash-sidebar,
+    .admin-sidebar {
+        width: 100% !important;
+        min-height: auto !important;
+        padding: 0.75rem 0 !important;
+    }
+
+    .sidebar-section,
+    .admin-sidebar-top {
+        border-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .dash-main,
+    .enroll-main,
+    .subj-main,
+    .admin-main {
+        padding: 1.25rem !important;
+    }
+
+    .stat-row {
+        grid-template-columns: 1fr !important;
+    }
 }
