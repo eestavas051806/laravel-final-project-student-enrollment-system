@@ -54,7 +54,7 @@ class AdminController extends Controller
         $totalSubjects  = Subject::where('is_active', true)->count();
         $totalEnrollments = Enrollment::count();
 
-        $recentStudents = Student::latest()->take(8)->get();
+        $recentStudents = Student::withCount('enrollments')->latest()->take(8)->get();
 
         return view('admin.dashboard', compact(
             'totalStudents', 'enrolledCount', 'totalSubjects',
@@ -68,7 +68,7 @@ class AdminController extends Controller
     {
         if (! session('admin_logged_in')) return redirect()->route('admin.login');
 
-        $query = Student::query();
+        $query = Student::query()->withCount('enrollments');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -135,6 +135,24 @@ class AdminController extends Controller
 
     return redirect()->route('admin.students')->with('success', 'Student updated successfully.');
 }
+
+    public function approveStudent(Student $student)
+    {
+        if (! session('admin_logged_in')) return redirect()->route('admin.login');
+
+        if ($student->enrollments()->count() === 0) {
+            return back()->with('error', 'This student has no selected subjects to approve.');
+        }
+
+        $student->update([
+            'is_enrolled' => true,
+            'enrollment_submitted_at' => $student->enrollment_submitted_at ?? now(),
+        ]);
+
+        $student->enrollments()->update(['status' => 'enrolled']);
+
+        return back()->with('success', $student->first_name . "'s enrollment has been approved.");
+    }
 
     public function destroyStudent(Student $student)
     {

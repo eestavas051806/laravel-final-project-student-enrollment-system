@@ -9,7 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
-Route::get('/', fn() => redirect()->route('login'));
+Route::get('/', fn() => view('auth.portal'))->name('portal');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -50,6 +50,7 @@ Route::get('/admin/students', [AdminController::class, 'students'])->name('admin
 Route::get('/admin/students/{student}', [AdminController::class, 'showStudent'])->name('admin.students.show');
 Route::get('/admin/students/{student}/edit', [AdminController::class, 'editStudent'])->name('admin.students.edit');
 Route::patch('/admin/students/{student}', [AdminController::class, 'updateStudent'])->name('admin.students.update');
+Route::patch('/admin/students/{student}/approve', [AdminController::class, 'approveStudent'])->name('admin.students.approve');
 Route::delete('/admin/students/{student}', [AdminController::class, 'destroyStudent'])->name('admin.students.destroy');
 
 // Admin - Subjects

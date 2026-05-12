@@ -127,8 +127,16 @@ class EnrollmentController extends Controller
             return back()->with('error', 'You have no subjects to confirm.');
         }
 
-        $student->update(['is_enrolled' => true]);
+        if ($student->is_enrolled) {
+            return redirect()->route('dashboard')->with('success', 'Your enrollment is already approved.');
+        }
 
-        return redirect()->route('dashboard')->with('success', 'Enrollment confirmed! You are now officially enrolled.');
+        if ($student->enrollment_submitted_at) {
+            return redirect()->route('dashboard')->with('success', 'Your enrollment is already submitted for admin approval.');
+        }
+
+        $student->update(['enrollment_submitted_at' => now()]);
+
+        return redirect()->route('dashboard')->with('success', 'Enrollment submitted! Please wait for admin approval.');
     }
 }

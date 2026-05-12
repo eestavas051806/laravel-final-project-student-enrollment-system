@@ -21,6 +21,7 @@
     .action-btn { font-size: 0.75rem; text-decoration: none; padding: 3px 9px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
     .action-btn.view   { color: var(--ses-red); background: var(--ses-red-light); }
     .action-btn.edit   { color: var(--ses-text-soft); background: var(--ses-beige); border: 1px solid var(--ses-border); }
+    .action-btn.approve { color: #ffffff; background: var(--ses-red); }
     .action-btn.delete { color: #b91c1c; background: #fee2e2; }
 </style>
 @endpush
@@ -33,6 +34,9 @@
 
 @if(session('success'))
     <div class="ses-alert success">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+    <div class="ses-alert error">{{ session('error') }}</div>
 @endif
 
 <form method="GET" action="{{ route('admin.students') }}" class="filter-bar">
@@ -74,10 +78,21 @@
             <td style="font-size:0.78rem;">{{ $student->year_level }}</td>
             <td style="font-size:0.78rem;color:var(--ses-gray-400);">{{ $student->email }}</td>
             <td style="font-size:0.78rem;color:var(--ses-gray-400);">{{ $student->contact_number }}</td>
-            <td><span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">{{ $student->is_enrolled ? 'Enrolled' : 'Pending' }}</span></td>
+            <td>
+                <span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">
+                    {{ $student->is_enrolled ? 'Approved' : ($student->enrollment_submitted_at ? 'For Approval' : 'Pending') }}
+                </span>
+            </td>
             <td style="display:flex;gap:5px;align-items:center;">
                 <a href="{{ route('admin.students.show', $student) }}" class="action-btn view">View</a>
                 <a href="{{ route('admin.students.edit', $student) }}" class="action-btn edit">Edit</a>
+                @if(! $student->is_enrolled && $student->enrollments_count > 0)
+                    <form action="{{ route('admin.students.approve', $student) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="action-btn approve">Approve</button>
+                    </form>
+                @endif
                 <form action="{{ route('admin.students.destroy', $student) }}" method="POST" onsubmit="return confirm('Delete this student? This cannot be undone.')">
                     @csrf @method('DELETE')
                     <button type="submit" class="action-btn delete">Delete</button>

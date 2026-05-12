@@ -76,6 +76,136 @@
     .dash-greeting strong { color: var(--ses-gray-900); font-size: 0.92rem; }
     .dash-period { font-size: 0.7rem; color: var(--ses-red-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.5rem; }
 
+    .progress-card {
+        background: var(--ses-bg);
+        border: 1px solid var(--ses-border);
+        border-radius: var(--ses-radius-md);
+        box-shadow: var(--ses-shadow-sm);
+        padding: 1.25rem 1.35rem;
+        margin-bottom: 1.25rem;
+    }
+    .progress-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    .progress-title {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.2rem;
+        color: var(--ses-gray-900);
+        margin-bottom: 0.15rem;
+    }
+    .progress-subtitle {
+        font-size: 0.78rem;
+        color: var(--ses-gray-400);
+        margin: 0;
+    }
+    .progress-score {
+        min-width: 78px;
+        text-align: right;
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.7rem;
+        line-height: 1;
+        color: var(--ses-red);
+    }
+    .progress-track {
+        height: 8px;
+        background: var(--ses-gray-200);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 1.1rem;
+    }
+    .progress-fill {
+        height: 100%;
+        background: var(--ses-red);
+        border-radius: inherit;
+    }
+    .progress-steps {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.65rem;
+    }
+    .progress-step {
+        min-height: 112px;
+        border: 1px solid var(--ses-border);
+        border-radius: var(--ses-radius-sm);
+        padding: 0.85rem;
+        background: var(--ses-gray-50);
+    }
+    .progress-step.complete {
+        background: var(--ses-success-bg);
+        border-color: var(--ses-success-border);
+    }
+    .progress-step.current {
+        background: var(--ses-red-soft);
+        border-color: var(--ses-red-100);
+    }
+    .step-marker {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--ses-bg);
+        border: 1px solid var(--ses-border);
+        color: var(--ses-text-muted);
+        font-size: 0.72rem;
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+    }
+    .progress-step.complete .step-marker {
+        background: var(--ses-success-text);
+        border-color: var(--ses-success-text);
+        color: #ffffff;
+    }
+    .progress-step.current .step-marker {
+        background: var(--ses-red);
+        border-color: var(--ses-red);
+        color: #ffffff;
+    }
+    .step-label {
+        display: block;
+        color: var(--ses-gray-900);
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+    .step-description {
+        display: block;
+        color: var(--ses-gray-400);
+        font-size: 0.7rem;
+        line-height: 1.35;
+    }
+    .progress-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        border-top: 1px solid var(--ses-border);
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+    .progress-next {
+        color: var(--ses-text-soft);
+        font-size: 0.78rem;
+    }
+    .progress-next strong { color: var(--ses-gray-900); }
+    @media (max-width: 1100px) {
+        .progress-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+        .progress-top,
+        .progress-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .progress-score { text-align: left; }
+        .progress-steps { grid-template-columns: 1fr; }
+    }
+
     /* ── STAT CARDS ── */
     .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
     .stat-card {
@@ -227,6 +357,62 @@
         @if(session('success'))
             <div class="ses-alert success">{{ session('success') }}</div>
         @endif
+
+        @php
+            $nextStep = collect($progressSteps)->firstWhere('complete', false);
+            $nextStepLabel = $nextStep['label'] ?? null;
+            $nextActionRoute = match ($nextStepLabel) {
+                'Profile Completed' => route('profile.edit'),
+                'Subjects Selected', 'Submitted for Approval', 'Admin Approved' => route('enrollments.index'),
+                default => route('profile.show'),
+            };
+            $nextActionLabel = match ($nextStepLabel) {
+                'Profile Completed' => 'Complete profile',
+                'Subjects Selected' => 'Select subjects',
+                'Submitted for Approval' => 'Submit enrollment',
+                'Admin Approved' => 'Review enrollment',
+                default => 'View profile',
+            };
+        @endphp
+
+        {{-- ENROLLMENT PROGRESS TRACKER --}}
+        <section class="progress-card" aria-label="Enrollment progress tracker">
+            <div class="progress-top">
+                <div>
+                    <h2 class="progress-title">Enrollment Progress Tracker</h2>
+                    <p class="progress-subtitle">A quick view of your enrollment journey for this semester.</p>
+                </div>
+                <div class="progress-score">{{ $progressPercent }}%</div>
+            </div>
+
+            <div class="progress-track" aria-hidden="true">
+                <div class="progress-fill" style="width: {{ $progressPercent }}%;"></div>
+            </div>
+
+            <div class="progress-steps">
+                @foreach($progressSteps as $index => $step)
+                    @php
+                        $isCurrent = ! $step['complete'] && $step['label'] === $nextStepLabel;
+                    @endphp
+                    <div class="progress-step {{ $step['complete'] ? 'complete' : '' }} {{ $isCurrent ? 'current' : '' }}">
+                        <div class="step-marker">{{ $step['complete'] ? '✓' : $index + 1 }}</div>
+                        <span class="step-label">{{ $step['label'] }}</span>
+                        <span class="step-description">{{ $step['description'] }}</span>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="progress-footer">
+                <div class="progress-next">
+                    @if($nextStep)
+                        Next step: <strong>{{ $nextStep['label'] }}</strong>
+                    @else
+                        Status: <strong>Enrollment completed</strong>
+                    @endif
+                </div>
+                <a href="{{ $nextActionRoute }}" class="btn-red">{{ $nextActionLabel }}</a>
+            </div>
+        </section>
 
         {{-- STAT CARDS --}}
         <div class="stat-row">

@@ -12,6 +12,7 @@
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
     .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
     .pill.pending  { background: #fee2e2; color: #b91c1c; }
+    .approve-btn { padding: 9px 16px; background: var(--ses-red); color: white; border-radius: var(--ses-radius-sm); font-size: 0.83rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: var(--ses-shadow-sm); }
     .ses-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
     .ses-table th { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ses-gray-400); font-weight: 600; padding: 0 14px 8px; text-align: left; border-bottom: 1px solid var(--ses-gray-200); }
     .ses-table td { padding: 9px 14px; border-bottom: 1px solid var(--ses-gray-100); color: var(--ses-gray-900); }
@@ -21,12 +22,26 @@
 @endpush
 
 @section('content')
+@if(session('success'))
+    <div class="ses-alert success">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+    <div class="ses-alert error">{{ session('error') }}</div>
+@endif
+
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
     <div>
         <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ses-gray-900);">{{ $student->first_name }} {{ $student->last_name }}</div>
         <div style="font-size:0.75rem;color:var(--ses-gray-400);">Student ID: {{ $student->student_id }}</div>
     </div>
     <div style="display:flex;gap:0.6rem;">
+        @if(! $student->is_enrolled && $student->enrollments->count() > 0)
+            <form action="{{ route('admin.students.approve', $student) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="approve-btn">Approve Enrollment</button>
+            </form>
+        @endif
         <a href="{{ route('admin.students.edit', $student) }}" style="padding:9px 16px;background:var(--ses-red);color:white;border-radius:var(--ses-radius-sm);font-size:0.83rem;font-weight:600;text-decoration:none;box-shadow:var(--ses-shadow-sm);">✏️ Edit</a>
         <form action="{{ route('admin.students.destroy', $student) }}" method="POST" onsubmit="return confirm('Delete this student?')">
             @csrf @method('DELETE')
@@ -53,8 +68,9 @@
     <div class="detail-row"><span class="detail-label">Year level</span><span class="detail-val">{{ $student->year_level }}</span></div>
     <div class="detail-row">
         <span class="detail-label">Enrollment status</span>
-        <span class="detail-val"><span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">{{ $student->is_enrolled ? 'Enrolled' : 'Pending' }}</span></span>
+        <span class="detail-val"><span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">{{ $student->is_enrolled ? 'Approved' : ($student->enrollment_submitted_at ? 'For Approval' : 'Pending') }}</span></span>
     </div>
+    <div class="detail-row"><span class="detail-label">Submitted at</span><span class="detail-val">{{ $student->enrollment_submitted_at ? $student->enrollment_submitted_at->format('M d, Y h:i A') : 'Not submitted yet' }}</span></div>
 </div>
 
 @if($student->enrollments->count() > 0)

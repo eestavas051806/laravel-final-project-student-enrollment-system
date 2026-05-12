@@ -81,7 +81,7 @@
         </div>
         <button type="submit" class="ses-btn">Sign in as Admin →</button>
     </form>
-    <a href="{{ route('login') }}" class="back-link">← Back to student login</a>
+    <a href="{{ route('portal') }}" class="back-link">&larr; Back to portal selection</a>
 </div>
 </body>
 </html>

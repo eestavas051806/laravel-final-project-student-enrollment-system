@@ -360,8 +360,8 @@
             </div>
             <form action="{{ route('enrollments.confirm') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn-confirm" {{ count($enrolledIds) === 0 ? 'disabled' : '' }}>
-                    Confirm enrollment
+                <button type="submit" class="btn-confirm" {{ count($enrolledIds) === 0 || $student->enrollment_submitted_at || $student->is_enrolled ? 'disabled' : '' }}>
+                    {{ $student->is_enrolled ? 'Enrollment approved' : ($student->enrollment_submitted_at ? 'Submitted for approval' : 'Submit for approval') }}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
             </form>

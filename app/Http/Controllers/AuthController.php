@@ -57,17 +57,12 @@ class AuthController extends Controller
             'password'         => 'required|min:8|confirmed',
             'course'           => 'required|string|max:255',
             'year_level'       => 'required|string|max:50',
-            'id_photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
         // Generate student ID: YYYY-XXXXX
         $validated['student_id'] = date('Y') . '-' . str_pad(Student::count() + 1, 5, '0', STR_PAD_LEFT);
-
-        if ($request->hasFile('id_photo')) {
-            $validated['id_photo'] = $request->file('id_photo')->store('id_photos', 'public');
-        }
 
         $student = Student::create($validated);
 
@@ -80,6 +75,6 @@ class AuthController extends Controller
     public function logout()
     {
         session()->flush();
-        return redirect()->route('login');
+        return redirect()->route('portal');
     }
 }

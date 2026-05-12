@@ -60,20 +60,6 @@
     }
     .ses-input:focus, .ses-select:focus { border-color: rgba(196, 61, 61, 0.45); background: var(--ses-bg); box-shadow: 0 0 0 3px rgba(196, 61, 61, 0.08); }
     .ses-input.is-error, .ses-select.is-error { border-color: var(--ses-red); }
-    .ses-input:disabled { opacity: 0.5; cursor: not-allowed; }
-    .id-photo-box {
-        border: 1.5px dashed var(--ses-border);
-        border-radius: var(--ses-radius-sm);
-        height: 80px;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        font-size: 0.75rem;
-        color: var(--ses-gray-400);
-        gap: 4px;
-        cursor: pointer;
-        transition: border-color 0.15s;
-    }
-    .id-photo-box:hover { border-color: var(--ses-red); color: var(--ses-red); }
     .reg-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
     .ses-btn-outline {
         flex: 1;
@@ -121,7 +107,7 @@
             </div>
         @endif
 
-        <form action="{{ route('register.post') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('register.post') }}" method="POST">
             @csrf
 
             {{-- PERSONAL INFORMATION --}}
@@ -199,18 +185,6 @@
                             <option value="{{ $y }}" {{ old('year_level') == $y ? 'selected' : '' }}>{{ $y }}</option>
                         @endforeach
                     </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="ses-label">Student ID number</label>
-                    <input type="text" class="ses-input" placeholder="Auto-generated" disabled>
-                </div>
-                <div class="col-md-6">
-                    <label class="ses-label">ID photo</label>
-                    <label class="id-photo-box" for="id_photo">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        Click to upload
-                    </label>
-                    <input type="file" id="id_photo" name="id_photo" accept="image/*" style="display:none;">
                 </div>
             </div>
 

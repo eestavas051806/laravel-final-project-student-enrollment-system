@@ -91,7 +91,7 @@
             <td style="font-size:0.78rem;color:var(--ses-gray-400);">{{ $student->email }}</td>
             <td>
                 <span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">
-                    {{ $student->is_enrolled ? 'Enrolled' : 'Pending' }}
+                    {{ $student->is_enrolled ? 'Approved' : ($student->enrollment_submitted_at ? 'For Approval' : 'Pending') }}
                 </span>
             </td>
             <td>

@@ -24,6 +24,7 @@ class Student extends Model
         'student_id',
         'id_photo',
         'is_enrolled',
+        'enrollment_submitted_at',
     ];
 
     protected $hidden = [
@@ -35,6 +36,7 @@ class Student extends Model
         return [
             'password'    => 'hashed',
             'is_enrolled' => 'boolean',
+            'enrollment_submitted_at' => 'datetime',
         ];
     }
 
