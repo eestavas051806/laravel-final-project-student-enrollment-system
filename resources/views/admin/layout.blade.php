@@ -45,6 +45,14 @@
         .ses-alert { padding: 0.75rem 1rem; border-radius: var(--ses-radius-sm); font-size: 0.85rem; margin-bottom: 1rem; }
         .ses-alert.success { background: var(--ses-success-bg); border: 1px solid var(--ses-success-border); color: var(--ses-success-text); }
         .ses-alert.error { background: var(--ses-red-soft); border: 1px solid var(--ses-red-100); color: var(--ses-red-deep); }
+        .admin-main nav[role="navigation"] svg {
+            width: 16px;
+            height: 16px;
+        }
+        .admin-main nav[role="navigation"] a,
+        .admin-main nav[role="navigation"] span {
+            line-height: 1.2;
+        }
         @stack('styles-raw')
     </style>
 @stack('styles')

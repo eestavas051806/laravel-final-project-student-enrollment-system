@@ -10,11 +10,23 @@
     .filter-input { flex: 1; min-width: 200px; }
     .filter-btn { height: 38px; background: var(--ses-red); color: white; border: none; border-radius: var(--ses-radius-sm); padding: 0 18px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', system-ui, sans-serif; }
     .filter-btn:hover { background: var(--ses-red-hover); }
-    .ses-table { width: 100%; border-collapse: collapse; background: var(--ses-bg); border-radius: var(--ses-radius-md); overflow: hidden; border: 1px solid var(--ses-border); font-size: 0.83rem; box-shadow: var(--ses-shadow-sm); }
+    .ses-table { width: 100%; border-collapse: collapse; background: var(--ses-bg); border-radius: var(--ses-radius-md); overflow: hidden; border: 1px solid var(--ses-border); font-size: 0.83rem; box-shadow: var(--ses-shadow-sm); table-layout: fixed; }
     .ses-table th { background: var(--ses-beige-muted); color: var(--ses-text-soft); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--ses-border); }
     .ses-table td { padding: 10px 14px; border-bottom: 1px solid var(--ses-gray-100); vertical-align: middle; }
     .ses-table tr:last-child td { border-bottom: none; }
     .ses-table tbody tr:hover td { background: var(--ses-beige); }
+    .student-id-col { width: 9%; }
+    .name-col { width: 14%; }
+    .course-col { width: 8%; }
+    .year-col { width: 7%; }
+    .email-col { width: 27%; }
+    .contact-col { width: 11%; }
+    .status-col { width: 10%; text-align: center !important; }
+    .actions-col { width: 14%; text-align: center !important; }
+    .status-cell { text-align: center; }
+    .actions-cell { white-space: nowrap; }
+    .actions-wrap { display: flex; gap: 6px; align-items: center; justify-content: center; flex-wrap: nowrap; }
+    .actions-wrap form { margin: 0; }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
     .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
     .pill.pending  { background: #fee2e2; color: #b91c1c; }
@@ -59,14 +71,14 @@
 <table class="ses-table">
     <thead>
         <tr>
-            <th>Student ID</th>
-            <th>Full name</th>
-            <th>Course</th>
-            <th>Year</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th class="student-id-col">Student ID</th>
+            <th class="name-col">Full name</th>
+            <th class="course-col">Course</th>
+            <th class="year-col">Year</th>
+            <th class="email-col">Email</th>
+            <th class="contact-col">Contact</th>
+            <th class="status-col">Status</th>
+            <th class="actions-col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -78,25 +90,27 @@
             <td style="font-size:0.78rem;">{{ $student->year_level }}</td>
             <td style="font-size:0.78rem;color:var(--ses-gray-400);">{{ $student->email }}</td>
             <td style="font-size:0.78rem;color:var(--ses-gray-400);">{{ $student->contact_number }}</td>
-            <td>
+            <td class="status-cell">
                 <span class="pill {{ $student->is_enrolled ? 'enrolled' : 'pending' }}">
                     {{ $student->is_enrolled ? 'Approved' : ($student->enrollment_submitted_at ? 'For Approval' : 'Pending') }}
                 </span>
             </td>
-            <td style="display:flex;gap:5px;align-items:center;">
-                <a href="{{ route('admin.students.show', $student) }}" class="action-btn view">View</a>
-                <a href="{{ route('admin.students.edit', $student) }}" class="action-btn edit">Edit</a>
-                @if(! $student->is_enrolled && $student->enrollments_count > 0)
-                    <form action="{{ route('admin.students.approve', $student) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="action-btn approve">Approve</button>
+            <td class="actions-cell">
+                <div class="actions-wrap">
+                    <a href="{{ route('admin.students.show', $student) }}" class="action-btn view">View</a>
+                    <a href="{{ route('admin.students.edit', $student) }}" class="action-btn edit">Edit</a>
+                    @if(! $student->is_enrolled)
+                        <form action="{{ route('admin.students.approve', $student) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="action-btn approve">Approve</button>
+                        </form>
+                    @endif
+                    <form action="{{ route('admin.students.destroy', $student) }}" method="POST" onsubmit="return confirm('Delete this student? This cannot be undone.')">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="action-btn delete">Delete</button>
                     </form>
-                @endif
-                <form action="{{ route('admin.students.destroy', $student) }}" method="POST" onsubmit="return confirm('Delete this student? This cannot be undone.')">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="action-btn delete">Delete</button>
-                </form>
+                </div>
             </td>
         </tr>
         @empty

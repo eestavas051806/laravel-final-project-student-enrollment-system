@@ -35,7 +35,7 @@
         <div style="font-size:0.75rem;color:var(--ses-gray-400);">Student ID: {{ $student->student_id }}</div>
     </div>
     <div style="display:flex;gap:0.6rem;">
-        @if(! $student->is_enrolled && $student->enrollments->count() > 0)
+        @if(! $student->is_enrolled)
             <form action="{{ route('admin.students.approve', $student) }}" method="POST">
                 @csrf
                 @method('PATCH')

@@ -140,10 +140,6 @@ class AdminController extends Controller
     {
         if (! session('admin_logged_in')) return redirect()->route('admin.login');
 
-        if ($student->enrollments()->count() === 0) {
-            return back()->with('error', 'This student has no selected subjects to approve.');
-        }
-
         $student->update([
             'is_enrolled' => true,
             'enrollment_submitted_at' => $student->enrollment_submitted_at ?? now(),
