@@ -201,8 +201,8 @@
             <span class="portal-logo-sub">Tagum Campus</span>
         </a>
         <nav class="portal-nav" aria-label="Portal navigation">
-            <a href="#about-us">About Us</a>
-            <a href="#contact-us">Contact Us</a>
+            <a href="{{ route('about') }}">About Us</a>
+            <a href="{{ route('contact') }}">Contact Us</a>
             <a href="{{ route('register') }}">Register</a>
             <a href="{{ route('login') }}" class="portal-login-btn">Login</a>
         </nav>

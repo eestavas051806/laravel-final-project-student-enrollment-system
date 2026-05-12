@@ -10,6 +10,8 @@ use App\Http\Controllers\AdminController;
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 Route::get('/', fn() => view('auth.portal'))->name('portal');
+Route::get('/about-us', fn() => view('auth.about'))->name('about');
+Route::get('/contact-us', fn() => view('auth.contact'))->name('contact');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
