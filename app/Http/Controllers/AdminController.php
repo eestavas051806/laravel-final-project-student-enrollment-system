@@ -140,12 +140,16 @@ class AdminController extends Controller
     {
         if (! session('admin_logged_in')) return redirect()->route('admin.login');
 
+        if (! $student->enrollment_submitted_at) {
+            return back()->with('error', 'This student has not submitted an enrollment for approval yet.');
+        }
+
         $student->update([
             'is_enrolled' => true,
-            'enrollment_submitted_at' => $student->enrollment_submitted_at ?? now(),
+            'enrollment_submitted_at' => $student->enrollment_submitted_at,
         ]);
 
-        $student->enrollments()->update(['status' => 'enrolled']);
+        $student->enrollments()->where('status', 'submitted')->update(['status' => 'enrolled']);
 
         return back()->with('success', $student->first_name . "'s enrollment has been approved.");
     }
@@ -163,7 +167,10 @@ class AdminController extends Controller
     {
         if (! session('admin_logged_in')) return redirect()->route('admin.login');
 
-        $query = Subject::withCount('enrollments');
+        $query = Subject::with(['prerequisite', 'corequisite'])
+            ->withCount([
+                'enrollments as reserved_count' => fn($q) => $q->whereIn('status', ['submitted', 'enrolled']),
+            ]);
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%')
@@ -183,7 +190,8 @@ class AdminController extends Controller
     public function createSubject()
     {
         if (! session('admin_logged_in')) return redirect()->route('admin.login');
-        return view('admin.subjects.create');
+        $subjects = Subject::orderBy('code')->get();
+        return view('admin.subjects.create', compact('subjects'));
     }
 
     public function storeSubject(Request $request)
@@ -200,9 +208,23 @@ class AdminController extends Controller
             'max_slots'    => 'required|integer|min:1',
             'fee_per_unit' => 'required|numeric|min:0',
             'description'  => 'nullable|string',
+            'prerequisite_subject_id' => 'nullable|exists:subjects,id|different:corequisite_subject_id',
+            'corequisite_subject_id'  => 'nullable|exists:subjects,id|different:prerequisite_subject_id',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'code',
+            'name',
+            'units',
+            'schedule',
+            'department',
+            'year_level',
+            'prerequisite_subject_id',
+            'corequisite_subject_id',
+            'max_slots',
+            'fee_per_unit',
+            'description',
+        ]);
         $data['is_active'] = $request->has('is_active');
 
         Subject::create($data);
@@ -213,7 +235,8 @@ class AdminController extends Controller
     public function editSubject(Subject $subject)
     {
         if (! session('admin_logged_in')) return redirect()->route('admin.login');
-        return view('admin.subjects.edit', compact('subject'));
+        $subjects = Subject::where('id', '!=', $subject->id)->orderBy('code')->get();
+        return view('admin.subjects.edit', compact('subject', 'subjects'));
     }
 
     public function updateSubject(Request $request, Subject $subject)
@@ -230,9 +253,23 @@ class AdminController extends Controller
             'max_slots'    => 'required|integer|min:1',
             'fee_per_unit' => 'required|numeric|min:0',
             'description'  => 'nullable|string',
+            'prerequisite_subject_id' => 'nullable|exists:subjects,id|different:corequisite_subject_id',
+            'corequisite_subject_id'  => 'nullable|exists:subjects,id|different:prerequisite_subject_id',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'code',
+            'name',
+            'units',
+            'schedule',
+            'department',
+            'year_level',
+            'prerequisite_subject_id',
+            'corequisite_subject_id',
+            'max_slots',
+            'fee_per_unit',
+            'description',
+        ]);
         $data['is_active'] = $request->has('is_active');
 
         $subject->update($data);

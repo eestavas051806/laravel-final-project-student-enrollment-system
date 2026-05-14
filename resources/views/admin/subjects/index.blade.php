@@ -57,6 +57,7 @@
             <th>Department</th>
             <th>Units</th>
             <th>Year</th>
+            <th>Requirements</th>
             <th>Slots</th>
             <th>Fee/unit</th>
             <th>Active</th>
@@ -71,7 +72,18 @@
             <td><span class="dept-pill">{{ $subject->department }}</span></td>
             <td style="font-size:0.8rem;color:var(--ses-gray-400);">{{ $subject->units }}</td>
             <td style="font-size:0.78rem;">{{ $subject->year_level }}</td>
-            <td style="font-size:0.78rem;">{{ $subject->enrollments_count }}/{{ $subject->max_slots }}</td>
+            <td style="font-size:0.72rem;color:var(--ses-gray-400);line-height:1.35;">
+                @if($subject->prerequisite)
+                    <div>Prereq: <strong>{{ $subject->prerequisite->code }}</strong></div>
+                @endif
+                @if($subject->corequisite)
+                    <div>Coreq: <strong>{{ $subject->corequisite->code }}</strong></div>
+                @endif
+                @if(! $subject->prerequisite && ! $subject->corequisite)
+                    None
+                @endif
+            </td>
+            <td style="font-size:0.78rem;">{{ $subject->reserved_count }}/{{ $subject->max_slots }}</td>
             <td style="font-size:0.78rem;">₱{{ number_format($subject->fee_per_unit) }}</td>
             <td><span class="active-pill {{ $subject->is_active ? 'yes' : 'no' }}">{{ $subject->is_active ? 'Active' : 'Inactive' }}</span></td>
             <td style="display:flex;gap:5px;">
@@ -83,7 +95,7 @@
             </td>
         </tr>
         @empty
-        <tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--ses-gray-400);">No subjects found.</td></tr>
+        <tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--ses-gray-400);">No subjects found.</td></tr>
         @endforelse
     </tbody>
 </table>

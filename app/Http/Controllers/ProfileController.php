@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -84,9 +85,27 @@ class ProfileController extends Controller
         ]);
 
         $student = Student::findOrFail($studentId);
+        $oldPhoto = $student->id_photo;
         $path    = $request->file('id_photo')->store('id_photos', 'public');
         $student->update(['id_photo' => $path]);
 
+        if ($oldPhoto && $oldPhoto !== $path) {
+            Storage::disk('public')->delete($oldPhoto);
+        }
+
         return redirect()->route('profile.show')->with('success', 'Photo updated successfully.');
+    }
+
+    public function photo(Student $student)
+    {
+        if (! session('admin_logged_in') && (int) session('student_id') !== $student->id) {
+            abort(403);
+        }
+
+        if (! $student->id_photo || ! Storage::disk('public')->exists($student->id_photo)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('public')->path($student->id_photo));
     }
 }

@@ -25,7 +25,8 @@
     .detail-row { display: flex; padding: 0.5rem 0; border-bottom: 1px solid var(--ses-gray-100); font-size: 0.85rem; }
     .detail-row:last-child { border-bottom: none; }
     .detail-label { width: 160px; flex-shrink: 0; color: var(--ses-gray-400); font-size: 0.78rem; font-weight: 500; }
-    .avatar-circle { width: 72px; height: 72px; border-radius: 50%; background: var(--ses-red-soft); border: 2px solid var(--ses-red-100); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.75rem; color: var(--ses-red); margin-bottom: 0.75rem; }
+    .avatar-circle { width: 72px; height: 72px; border-radius: 50%; background: var(--ses-red-soft); border: 2px solid var(--ses-red-100); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.75rem; color: var(--ses-red); margin-bottom: 0.75rem; overflow: hidden; }
+    .avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
     .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
     .pill.pending  { background: var(--ses-red-light); color: var(--ses-red-dark); }
@@ -78,7 +79,13 @@
         {{-- PROFILE CARD --}}
         <div class="profile-card">
             <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--ses-gray-100);">
-                <div class="avatar-circle">{{ strtoupper(substr($student->first_name, 0, 1)) }}</div>
+                <div class="avatar-circle">
+                    @if($student->id_photo)
+                        <img src="{{ route('profile.photo.show', $student) }}" alt="Profile photo">
+                    @else
+                        {{ strtoupper(substr($student->first_name, 0, 1)) }}
+                    @endif
+                </div>
                 <div>
                     <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--ses-gray-900);">{{ $student->first_name }} {{ $student->last_name }}</div>
                     <div style="font-size:0.78rem;color:var(--ses-gray-400);margin-top:2px;">{{ $student->course }} · {{ $student->year_level }}</div>
@@ -99,10 +106,10 @@
             <div class="detail-row"><span class="detail-label">Address</span><span>{{ $student->complete_address }}</span></div>
         </div>
 
-        {{-- ENROLLED SUBJECTS --}}
+        {{-- SELECTED SUBJECTS --}}
         @if($student->enrollments->count() > 0)
         <div class="profile-card">
-            <div class="section-head">Enrolled Subjects ({{ $student->enrollments->count() }})</div>
+            <div class="section-head">Selected Subjects ({{ $student->enrollments->count() }})</div>
             @foreach($student->enrollments as $e)
             <div class="detail-row">
                 <span class="detail-label" style="font-size:0.8rem;color:var(--ses-red);font-weight:700;letter-spacing:0.03em;">{{ $e->subject->code }}</span>

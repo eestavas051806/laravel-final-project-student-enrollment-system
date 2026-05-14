@@ -32,7 +32,12 @@ class SubjectController extends Controller
             });
         }
 
-        $subjects     = $query->withCount('enrollments')->get();
+        $subjects = $query
+            ->with(['prerequisite', 'corequisite'])
+            ->withCount([
+                'enrollments as reserved_count' => fn($q) => $q->whereIn('status', ['submitted', 'enrolled']),
+            ])
+            ->get();
         $departments  = Subject::select('department')->distinct()->pluck('department');
 
         // IDs already enrolled by this student

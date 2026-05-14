@@ -12,6 +12,8 @@
     .subj-code { font-weight: 700; color: var(--ses-red); font-size: 0.8rem; letter-spacing: 0.03em; }
     .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
     .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
+    .pill.enlisted { background: var(--ses-red-light); color: var(--ses-red-dark); }
+    .pill.submitted { background: #fef9c3; color: #854d0e; }
     .pill.waitlisted { background: #fef9c3; color: #854d0e; }
     .pill.dropped { background: #fee2e2; color: #b91c1c; }
 </style>

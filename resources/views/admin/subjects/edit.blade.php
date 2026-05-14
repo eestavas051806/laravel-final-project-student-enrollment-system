@@ -49,6 +49,22 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-md-6"><label class="ses-label">Prerequisite subject</label>
+                <select name="prerequisite_subject_id" class="ses-select">
+                    <option value="">None</option>
+                    @foreach($subjects as $option)
+                        <option value="{{ $option->id }}" {{ old('prerequisite_subject_id', $subject->prerequisite_subject_id) == $option->id ? 'selected' : '' }}>{{ $option->code }} - {{ $option->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-6"><label class="ses-label">Corequisite subject</label>
+                <select name="corequisite_subject_id" class="ses-select">
+                    <option value="">None</option>
+                    @foreach($subjects as $option)
+                        <option value="{{ $option->id }}" {{ old('corequisite_subject_id', $subject->corequisite_subject_id) == $option->id ? 'selected' : '' }}>{{ $option->code }} - {{ $option->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="col-md-6"><label class="ses-label">Max slots *</label><input type="number" name="max_slots" class="ses-input" value="{{ old('max_slots', $subject->max_slots) }}" required></div>
             <div class="col-md-6"><label class="ses-label">Fee per unit (₱) *</label><input type="number" name="fee_per_unit" step="0.01" class="ses-input" value="{{ old('fee_per_unit', $subject->fee_per_unit) }}" required></div>
             <div class="col-12"><label class="ses-label">Description</label><textarea name="description" class="ses-textarea" rows="2">{{ old('description', $subject->description) }}</textarea></div>

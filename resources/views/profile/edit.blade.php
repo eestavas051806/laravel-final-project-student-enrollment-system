@@ -32,6 +32,7 @@
     .btn-cancel { height: 42px; background: var(--ses-beige); color: var(--ses-text-soft); border: 1.5px solid var(--ses-border); border-radius: var(--ses-radius-sm); font-size: 0.87rem; font-weight: 500; padding: 0 1.5rem; text-decoration: none; display: inline-flex; align-items: center; }
     .btn-cancel:hover { background: var(--ses-gray-200); color: var(--ses-gray-900); }
     .hint { font-size: 0.72rem; color: var(--ses-gray-400); margin-top: 3px; }
+    .photo-preview { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; border: 1.5px solid var(--ses-gray-200); background: white; }
 </style>
 @endpush
 
@@ -145,8 +146,7 @@
                 @csrf
                 <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1rem;">
                     @if($student->id_photo)
-                        <img src="{{ asset('storage/' . $student->id_photo) }}"
-                             style="width:72px;height:72px;border-radius:10px;object-fit:cover;border:1.5px solid var(--ses-gray-200);">
+                        <img src="{{ route('profile.photo.show', $student) }}" alt="Current ID photo" class="photo-preview">
                     @else
                         <div style="width:72px;height:72px;border-radius:10px;background:var(--ses-red-light);border:1.5px dashed var(--ses-red-100);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--ses-red);">
                             {{ strtoupper(substr($student->first_name, 0, 1)) }}
@@ -157,6 +157,9 @@
                         <input type="file" name="id_photo" accept="image/*"
                                style="font-size:0.82rem;font-family:'DM Sans',sans-serif;color:var(--ses-gray-600);">
                         <p class="hint">JPG or PNG, max 2MB.</p>
+                        @error('id_photo')
+                            <p style="color:#b91c1c;font-size:0.75rem;margin-top:3px;">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <button type="submit" class="btn-save">Update photo</button>

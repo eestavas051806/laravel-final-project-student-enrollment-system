@@ -111,8 +111,8 @@
             <tbody>
                 @forelse($subjects as $subject)
                 @php
-                    $available = $subject->max_slots - $subject->enrollments_count;
-                    $isEnrolled = in_array($subject->id, $enrolledIds);
+                    $available = $subject->max_slots - $subject->reserved_count;
+                    $isSelected = in_array($subject->id, $enrolledIds);
                 @endphp
                 <tr>
                     <td><span class="subj-code">{{ $subject->code }}</span></td>
@@ -127,8 +127,8 @@
                         </span>
                     </td>
                     <td>
-                        @if($isEnrolled)
-                            <span style="font-size:0.75rem;color:var(--ses-success-text);font-weight:600;">✓ Enrolled</span>
+                        @if($isSelected)
+                            <span style="font-size:0.75rem;color:var(--ses-success-text);font-weight:600;">✓ Selected</span>
                         @elseif($available > 0)
                             <a href="{{ route('enrollments.index') }}" class="btn-enroll-link">Enroll →</a>
                         @else

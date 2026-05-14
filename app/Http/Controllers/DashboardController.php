@@ -47,7 +47,7 @@ class DashboardController extends Controller
             [
                 'label' => 'Subjects Selected',
                 'description' => $enrolledCount > 0
-                    ? $enrolledCount . ' subject(s) added.'
+                    ? $enrolledCount . ' subject(s) enlisted.'
                     : 'Choose subjects for this semester.',
                 'complete' => $enrolledCount > 0,
             ],
@@ -55,7 +55,7 @@ class DashboardController extends Controller
                 'label' => 'Submitted for Approval',
                 'description' => $enrollmentSubmitted
                     ? 'Enrollment is under admin review.'
-                    : 'Submit your selected subjects.',
+                    : 'Submit your enlisted subjects.',
                 'complete' => $enrollmentSubmitted,
             ],
             [

@@ -286,6 +286,8 @@
         font-weight: 600;
     }
     .pill.enrolled { background: var(--ses-success-bg); color: var(--ses-success-text); }
+    .pill.enlisted { background: var(--ses-red-light); color: var(--ses-red-dark); }
+    .pill.submitted { background: #fef9c3; color: #854d0e; }
     .pill.waitlist  { background: #fff3f2; color: var(--ses-red); }
     .pill.pending   { background: var(--ses-red-light); color: var(--ses-red-dark); }
 
@@ -419,7 +421,7 @@
             <div class="stat-card c-red">
                 <div class="stat-icon red">📚</div>
                 <div class="stat-num">{{ $totalUnits }}</div>
-                <div class="stat-lbl">Units enrolled</div>
+                <div class="stat-lbl">Units selected</div>
             </div>
             <div class="stat-card c-accent">
                 <div class="stat-icon accent">💳</div>
@@ -433,9 +435,9 @@
             </div>
         </div>
 
-        {{-- ENROLLED SUBJECTS --}}
+        {{-- SELECTED SUBJECTS --}}
         <div class="sec-title">
-            Enrolled subjects
+            Selected subjects
             <a href="{{ route('enrollments.index') }}">Manage →</a>
         </div>
 
@@ -457,14 +459,14 @@
                         <td>{{ $enrollment->subject->name }}</td>
                         <td>{{ $enrollment->subject->units }}</td>
                         <td style="font-size:0.75rem;color:var(--ses-gray-400);">{{ $enrollment->subject->schedule }}</td>
-                        <td><span class="pill enrolled">Enrolled</span></td>
+                        <td><span class="pill {{ $enrollment->status }}">{{ ucfirst($enrollment->status) }}</span></td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         @else
             <div class="empty-state">
-                <p>You have no enrolled subjects yet.</p>
+                <p>You have no enlisted subjects yet.</p>
                 <a href="{{ route('enrollments.index') }}" class="btn-red">Start enrolling →</a>
             </div>
         @endif

@@ -268,7 +268,7 @@
     <main class="enroll-main">
         <div class="enroll-header">
             <h2>Subject enrollment</h2>
-            <p>Select subjects for AY 2025–2026, 2nd Semester. Maximum of 24 units.</p>
+            <p>Build your enlistment for AY 2025–2026, 2nd Semester. Maximum of 24 units. Subjects are not enrolled until you submit.</p>
         </div>
 
         @if(session('success'))
@@ -305,45 +305,64 @@
                         <th>Subject name</th>
                         <th>Units</th>
                         <th>Schedule</th>
+                        <th>Requirements</th>
                         <th>Slots</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($subjects as $subject)
-                    @php $isEnrolled = in_array($subject->id, $enrolledIds); $isFull = $subject->enrollments_count >= $subject->max_slots; @endphp
+                    @php
+                        $isSelected = in_array($subject->id, $selectedIds);
+                        $isFull = $subject->reserved_count >= $subject->max_slots;
+                        $selection = $student->enrollments->where('subject_id', $subject->id)->first();
+                        $isEnrollmentLocked = $enrollmentLocked ?? (($student->enrollment_submitted_at || $student->is_enrolled) && $student->enrollments->isNotEmpty());
+                    @endphp
                     <tr>
                         <td><span class="subj-code">{{ $subject->code }}</span></td>
                         <td>{{ $subject->name }}</td>
                         <td style="font-size:0.8rem;color:var(--ses-gray-400);">{{ $subject->units }}</td>
                         <td style="font-size:0.75rem;color:var(--ses-gray-400);">{{ $subject->schedule }}</td>
+                        <td style="font-size:0.72rem;color:var(--ses-gray-400);line-height:1.35;">
+                            @if($subject->prerequisite)
+                                <div>Prereq: <strong>{{ $subject->prerequisite->code }}</strong></div>
+                            @endif
+                            @if($subject->corequisite)
+                                <div>Coreq: <strong>{{ $subject->corequisite->code }}</strong></div>
+                            @endif
+                            @if(! $subject->prerequisite && ! $subject->corequisite)
+                                None
+                            @endif
+                        </td>
                         <td>
                             <span class="slots-text {{ $isFull ? 'full' : '' }}">
-                                {{ $subject->enrollments_count }}/{{ $subject->max_slots }}
+                                {{ $subject->reserved_count }}/{{ $subject->max_slots }}
                             </span>
                         </td>
                         <td>
-                            @if($isEnrolled)
-                                <span class="btn-add added-btn">✓ Added</span>
-                                <form action="{{ route('enrollments.destroy', $student->enrollments->where('subject_id', $subject->id)->first()?->id) }}" method="POST" style="display:inline;">
+                            @if($isSelected)
+                                <span class="btn-add added-btn">{{ ucfirst($selection?->status ?? 'enlisted') }}</span>
+                                @if(! $isEnrollmentLocked && $selection?->status === 'enlisted')
+                                <form action="{{ route('enrollments.destroy', $selection?->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-remove">Remove</button>
                                 </form>
+                                @endif
                             @elseif($isFull)
                                 <span class="btn-add added-btn" style="background:var(--ses-beige);color:var(--ses-text-muted);border-color:var(--ses-border);">Full</span>
                             @else
                                 <form action="{{ route('enrollments.store') }}" method="POST" style="display:inline;">
                                     @csrf
                                     <input type="hidden" name="subject_id" value="{{ $subject->id }}">
-                                    <button type="submit" class="btn-add add-btn">+ Add</button>
+                                    <button type="submit" class="btn-add add-btn" {{ $isEnrollmentLocked ? 'disabled' : '' }}>+ Enlist</button>
                                 </form>
                             @endif
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" style="text-align:center;padding:2.5rem;color:var(--ses-gray-400);">No subjects found.</td>
+                        <td colspan="7" style="text-align:center;padding:2.5rem;color:var(--ses-gray-400);">No subjects found.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -353,14 +372,14 @@
         {{-- FOOTER SUMMARY --}}
         <div class="enroll-footer">
             <div class="enroll-summary">
-                <strong>{{ count($enrolledIds) }} subject(s)</strong> selected &nbsp;·&nbsp;
+                <strong>{{ count($selectedIds) }} subject(s)</strong> enlisted &nbsp;·&nbsp;
                 <span class="unit-bar"><span class="unit-fill" style="width:{{ min(($totalUnits/24)*100, 100) }}%;"></span></span>
                 <strong>{{ $totalUnits }} / 24</strong> units &nbsp;·&nbsp;
                 Estimated fee: <strong>₱{{ number_format($totalFee) }}</strong>
             </div>
             <form action="{{ route('enrollments.confirm') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn-confirm" {{ count($enrolledIds) === 0 || $student->enrollment_submitted_at || $student->is_enrolled ? 'disabled' : '' }}>
+                <button type="submit" class="btn-confirm" {{ count($selectedIds) === 0 || ($enrollmentLocked ?? false) ? 'disabled' : '' }}>
                     {{ $student->is_enrolled ? 'Enrollment approved' : ($student->enrollment_submitted_at ? 'Submitted for approval' : 'Submit for approval') }}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>

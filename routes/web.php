@@ -38,6 +38,7 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+Route::get('/profile/photo/{student}', [ProfileController::class, 'photo'])->name('profile.photo.show');
 Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo');
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────────

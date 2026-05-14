@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
             $table->string('academic_year', 20)->default('2025-2026');
             $table->string('semester', 30)->default('2nd Semester');
-            $table->enum('status', ['enrolled', 'waitlisted', 'dropped'])->default('enrolled');
+            $table->enum('status', ['enlisted', 'submitted', 'enrolled', 'waitlisted', 'dropped'])->default('enlisted');
             $table->unique(['student_id', 'subject_id', 'academic_year', 'semester']);
             $table->timestamps();
         });

@@ -55,7 +55,9 @@
             background: var(--ses-beige); border: 1.5px solid var(--ses-border);
             display: flex; align-items: center; justify-content: center;
             font-size: 0.7rem; font-weight: 700; color: var(--ses-red); text-decoration: none;
+            overflow: hidden;
         }
+        .ses-nav-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .ses-nav-avatar:hover { background: var(--ses-beige-muted); color: var(--ses-red-dark); }
         .ses-nav-user form button {
             background: var(--ses-bg); border: 1px solid var(--ses-border);
@@ -77,6 +79,7 @@
 <body>
 
 @if(session('student_id'))
+@php($navStudent = \App\Models\Student::find(session('student_id')))
 <nav class="ses-navbar">
     <a class="ses-logo" href="{{ route('dashboard') }}">
         <div class="ses-logo-icon">
@@ -94,7 +97,11 @@
     </div>
     <div class="ses-nav-user">
         <a href="{{ route('profile.show') }}" class="ses-nav-avatar" title="My Profile">
-            {{ strtoupper(substr(session('student_name', 'S'), 0, 1)) }}
+            @if($navStudent?->id_photo)
+                <img src="{{ route('profile.photo.show', $navStudent) }}" alt="Profile photo">
+            @else
+                {{ strtoupper(substr(session('student_name', 'S'), 0, 1)) }}
+            @endif
         </a>
         <form action="{{ route('logout') }}" method="POST">
             @csrf

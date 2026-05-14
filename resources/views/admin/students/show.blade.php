@@ -75,7 +75,7 @@
 
 @if($student->enrollments->count() > 0)
 <div class="detail-card">
-    <div class="section-head">Enrolled Subjects ({{ $student->enrollments->count() }})</div>
+    <div class="section-head">Selected Subjects ({{ $student->enrollments->count() }})</div>
     <table class="ses-table">
         <thead><tr><th>Code</th><th>Subject</th><th>Units</th><th>Schedule</th></tr></thead>
         <tbody>

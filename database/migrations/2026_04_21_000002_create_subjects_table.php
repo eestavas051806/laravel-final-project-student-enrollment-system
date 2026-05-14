@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('schedule');
             $table->string('department');
             $table->string('year_level', 50);
+            $table->foreignId('prerequisite_subject_id')->nullable()->constrained('subjects')->nullOnDelete();
+            $table->foreignId('corequisite_subject_id')->nullable()->constrained('subjects')->nullOnDelete();
             $table->unsignedSmallInteger('max_slots')->default(40);
             $table->decimal('fee_per_unit', 8, 2)->default(800.00);
             $table->text('description')->nullable();
