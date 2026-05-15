@@ -100,7 +100,19 @@ class EnrollmentController extends Controller
         }
 
         if (! $this->prerequisiteIsCompleted($student, $subject)) {
-            return back()->with('error', 'Cannot enroll: prerequisite not satisfied.');
+            $prerequisite = $subject->prerequisite;
+            $subjectLabel = trim($subject->code . ' - ' . $subject->name);
+            $prerequisiteLabel = $prerequisite
+                ? trim($prerequisite->code . ' - ' . $prerequisite->name)
+                : 'the required prerequisite subject';
+
+            return back()
+                ->with('error', 'Prerequisite subject not completed.')
+                ->with('prerequisite_warning', [
+                    'subject' => $subjectLabel,
+                    'prerequisite' => $prerequisiteLabel,
+                    'message' => 'You cannot enlist this subject yet because its prerequisite has not been completed.',
+                ]);
         }
 
         // Check unit cap (24 units max)

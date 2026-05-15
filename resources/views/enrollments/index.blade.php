@@ -226,6 +226,91 @@
     }
     .btn-confirm:hover { background: var(--ses-red-hover); }
     .btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .prereq-modal .modal-content {
+        border: 0;
+        border-radius: var(--ses-radius-lg);
+        box-shadow: var(--ses-shadow-md);
+    }
+    .prereq-modal .modal-header {
+        align-items: flex-start;
+        gap: 0.85rem;
+        border-bottom: 1px solid var(--ses-red-100);
+        background: var(--ses-red-soft);
+        padding: 1.15rem 1.25rem;
+    }
+    .prereq-modal-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--ses-red);
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+    }
+    .prereq-modal-icon svg {
+        width: 23px;
+        height: 23px;
+    }
+    .prereq-modal-title {
+        margin: 0;
+        color: var(--ses-red-deep);
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+    .prereq-modal-subtitle {
+        margin: 0.2rem 0 0;
+        color: var(--ses-text-soft);
+        font-size: 0.86rem;
+    }
+    .prereq-modal .modal-body {
+        padding: 1.25rem;
+    }
+    .prereq-detail {
+        display: grid;
+        grid-template-columns: 112px 1fr;
+        gap: 0.7rem;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid var(--ses-border);
+        font-size: 0.88rem;
+    }
+    .prereq-detail:last-child {
+        border-bottom: 0;
+    }
+    .prereq-detail span:first-child {
+        color: var(--ses-text-muted);
+        font-weight: 600;
+    }
+    .prereq-detail span:last-child {
+        color: var(--ses-gray-900);
+        font-weight: 700;
+    }
+    .prereq-modal .modal-footer {
+        border-top: 1px solid var(--ses-border);
+        padding: 1rem 1.25rem;
+    }
+    .btn-prereq-close {
+        background: var(--ses-red);
+        border: 1px solid var(--ses-red);
+        border-radius: var(--ses-radius-sm);
+        color: #ffffff;
+        font-size: 0.84rem;
+        font-weight: 700;
+        padding: 0.55rem 1.1rem;
+    }
+    .btn-prereq-close:hover {
+        background: var(--ses-red-hover);
+        border-color: var(--ses-red-hover);
+    }
+
+    @media (max-width: 575px) {
+        .prereq-detail {
+            grid-template-columns: 1fr;
+            gap: 0.2rem;
+        }
+    }
 </style>
 @endpush
 
@@ -277,6 +362,59 @@
         @if(session('error'))
             <div class="ses-alert error" style="margin-bottom:1rem;">{{ session('error') }}</div>
         @endif
+
+        @if(session('prerequisite_warning'))
+            @php
+                $prereqWarning = session('prerequisite_warning');
+            @endphp
+            <div class="modal fade prereq-modal" id="prerequisiteWarningModal" tabindex="-1" aria-labelledby="prerequisiteWarningTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="prereq-modal-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h5 class="prereq-modal-title" id="prerequisiteWarningTitle">Prerequisite not completed</h5>
+                                <p class="prereq-modal-subtitle">{{ $prereqWarning['message'] ?? 'Please complete the prerequisite subject before enlisting.' }}</p>
+                            </div>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="prereq-detail">
+                                <span>Subject</span>
+                                <span>{{ $prereqWarning['subject'] ?? 'Selected subject' }}</span>
+                            </div>
+                            <div class="prereq-detail">
+                                <span>Required</span>
+                                <span>{{ $prereqWarning['prerequisite'] ?? 'Prerequisite subject' }}</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-prereq-close" data-bs-dismiss="modal">Okay, I understand</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @push('scripts')
+        @if(session('prerequisite_warning'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var warningModal = document.getElementById('prerequisiteWarningModal');
+
+                if (warningModal && window.bootstrap) {
+                    new bootstrap.Modal(warningModal).show();
+                }
+            });
+        </script>
+        @endif
+        @endpush
 
         {{-- FILTERS --}}
         <form method="GET" action="{{ route('enrollments.index') }}" class="filter-bar">
